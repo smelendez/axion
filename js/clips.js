@@ -47,7 +47,7 @@ Clip.prototype.setPos = function(ctx) {
 
     var vertRange = 720 / Math.pow(Math.abs(this.seq - ctx.seq), 0.5);
 
-    var vertNoise = Math.random() * 40 - 20;
+    var vertNoise = Math.random() * 20 - 10;
     this.dom
         .css('left', left + 'px')
         .css('top', vertNoise - (25 * sizeFactor) + 360 +
@@ -146,9 +146,17 @@ $(document).ready(function(){
     new Clip('media/star_head.png', 'media/1-07.mp4', 0, 0.2),
     new Clip('media/star_head.png', 'media/1-08.mp4', 0, 0.5),
     new Clip('media/star_head_2.png', 'media/1-09.mp4', 0, 0.7),
-    new Clip('media/star_head_2.png', 'media/video_1.mp4', 1, 0.75),
-    new Clip('media/star_head.png', 'media/video_1.mp4', 2, 0.9),
-    new Clip('media/star_head.png', 'media/video_1.mp4', 3, 0.5)
+    new Clip('media/star_head.png', 'media/2-01.mp4', 1, 0.1),
+    new Clip('media/star_head.png', 'media/2-03.mp4', 1, 0.2),
+    new Clip('media/star_head_2.png', 'media/2-04.mp4', 1, 0.6),
+    new Clip('media/star_head_2.png', 'media/2-05.mp4', 1, 0.9),
+    new Clip('media/star_head_2.png', 'media/3-01.mp4', 2, 0.4),
+    new Clip('media/star_head_2.png', 'media/3-05.mp4', 2, 0.8),
+    new Clip('media/star_head.png', 'media/4-01.mp4', 3, 0.1),
+    new Clip('media/star_head.png', 'media/4-02.mp4', 3, 0.3),
+    new Clip('media/star_head.png', 'media/4-04.mp4', 3, 0.5),
+    new Clip('media/star_head.png', 'media/4-05.mp4', 3, 0.7),
+    new Clip('media/star_head.png', 'media/4-06.mp4', 3, 0.9),
   ]);
   window.CLIPS.show();
   $('video').on('click', function(){
