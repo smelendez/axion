@@ -72,12 +72,12 @@ $(document).ready(function(){
 
       case 38:
         // Up arrow
-        DEPTHMETER.incrementDepth();
+        DEPTHMETER.decrementDepth();
         break;
 
       case 40: 
         // Down arrow
-        DEPTHMETER.decrementDepth();
+        DEPTHMETER.incrementDepth();
         break;
     }
 

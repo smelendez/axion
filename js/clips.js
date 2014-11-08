@@ -12,7 +12,7 @@ Clip.prototype.setPos = function(ctx) {
   if (this.playing) {
     var clip = this;
     this.dom.css('opacity', '0')
-        .css('top', '170px')
+        .css('top', '85px')
         .css('left', '365px')
         .css('width', '550px')
         .css('height', '550px');
@@ -21,25 +21,23 @@ Clip.prototype.setPos = function(ctx) {
   this.dom.css('opacity', '1');
 
   var depthFactor = 1 / (1 +  Math.exp(8 * Math.abs(this.depth - ctx.depth) - 4));
-  if (this.seq < ctx.seq) {
-    this.dom.css('top', '900px').css('width', '1px').css('height', '1px');
-  } else if (this.seq == ctx.seq) {
-    var left = (this.depth - ctx.video_depth) * 300;
-    if (this.depth < ctx.video_depth) left += 300;
-    else if (this.depth > ctx.video_depth) left += 980;
+  if (this.seq == ctx.seq) {
+    var top = (this.depth < ctx.video_depth) ? 0 : 635;
     this.dom
-        .css('top', '360px')
-        .css('left', left + 'px')
-        .css('width', 200 * depthFactor + 'px')
-        .css('height', 200 * depthFactor + 'px')
-        .css('margin-top', -18 * depthFactor + 'px')
-        .css('font-size', 36 * depthFactor + 'px');
+        .css('top', (top + (.18 * 85)) + 'px')
+        .css('left', '600px')
+        .css('width', '85px')
+        .css('height', '85px')
+        .css('margin-top', -(.18 * 85) + 'px')
+        .css('font-size', (.36 * 85) + 'px');
   } else {
+    var left = ((this.seq - ctx.seq) * 120);
+    if (left > 0) left += 930; else left += 350;
+
     var vertNoise = Math.random() * 40 - 20;
-    var horizNoise = Math.random() * 40 - 20;
     this.dom
-        .css('top', vertNoise + 150 + ((ctx.seq - this.seq) * 50) + 'px')
-        .css('left', horizNoise + ((this.depth - ctx.depth)/2 + 0.5) * 1280 + 'px')
+        .css('left', left + 'px')
+        .css('top', vertNoise - (25 * depthFactor) + ((this.depth - ctx.depth)/2 + 0.5) * 720 + 'px')
         .css('width', 50 * depthFactor + 'px')
         .css('height', 50 * depthFactor + 'px')
         .css('margin-top', -9 * depthFactor + 'px')
@@ -56,7 +54,7 @@ Clip.prototype.preview = function(){
 Clip.prototype.show = function(ctx) {
   var that = this;
   this.setPos(ctx);
-  this.dom.appendTo($('body'));
+  this.dom.appendTo($('#viewport'));
   this.dom.on('mouseover', function(){
     $('#hover_preview').html(that.preview()).show();
     
