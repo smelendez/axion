@@ -6,5 +6,5 @@ body {
 }
 .clip {
   position: fixed;
-  transition: top 5s, left 5s;
+  transition: top 5s, left 5s, width 5s, height 5s;
 }

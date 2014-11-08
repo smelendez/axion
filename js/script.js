@@ -47,7 +47,8 @@ Clips.prototype.show = function(cur_seq, cur_depth)  {
 
 $(document).ready(function(){
   window.CLIPS = new Clips([
-    new Clip('media/placeholder_head.png', 0, 0.81)
+    new Clip('media/placeholder_head.png', 0, 0.81),
+    new Clip('media/placeholder_head_2.png', 1, 0.16)
   ]);
   window.CLIPS.show(0, 0.5);
 });
