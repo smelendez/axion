@@ -2,6 +2,7 @@ function Clip(screenshot, seq, depth) {
   this.dom = $('<div class="clip" />')
     .css('background-image', 'url("' + screenshot + '")');
   // TODO: mask
+  this.screenshot = screenshot;
   this.depth = depth;
   this.seq = seq;
 }
@@ -29,9 +30,23 @@ Clip.prototype.setPos = function(ctx) {
         .css('height', 50 * depthFactor + 'px');
   }
 }
+Clip.prototype.preview = function(){
+    return '<img width="200px" height="200px" id="preview_screenshot" src="' + this.screenshot + '" /> <div id="preview_title">Lorem Ipsum</div>'
+
+}
 Clip.prototype.show = function(ctx) {
+  var that = this;
   this.setPos(ctx);
   this.dom.appendTo($('body'));
+  this.dom.on('mouseover', function(){
+    console.log(that.preview());
+    $('#hover_preview').html(that.preview()).show();
+    
+
+  }).on('mouseout', function(){
+    $('#hover_preview').hide();
+
+  });
 }
 
 function Clips(vid_list) {
