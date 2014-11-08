@@ -1,5 +1,5 @@
 function Clip(screenshot, seq, depth) {
-  this.dom = $('<div class="clip" />')
+  this.dom = $('<div class="clip"><i class="playbutton fa fa-play"></i></div>')
     .css('background-image', 'url("' + screenshot + '")');
   // TODO: mask
   this.screenshot = screenshot;
@@ -19,7 +19,9 @@ Clip.prototype.setPos = function(ctx) {
         .css('top', '360px')
         .css('left', left + 'px')
         .css('width', 200 * depthFactor + 'px')
-        .css('height', 200 * depthFactor + 'px'); 
+        .css('height', 200 * depthFactor + 'px')
+        .css('margin-top', -18 * depthFactor + 'px')
+        .css('font-size', 36 * depthFactor + 'px');
   } else {
     var vertNoise = Math.random() * 40 - 20;
     var horizNoise = Math.random() * 40 - 20;
@@ -27,7 +29,9 @@ Clip.prototype.setPos = function(ctx) {
         .css('top', vertNoise + 150 + ((ctx.seq - this.seq) * 50) + 'px')
         .css('left', horizNoise + ((this.depth - ctx.depth)/2 + 0.5) * 1280 + 'px')
         .css('width', 50 * depthFactor + 'px')
-        .css('height', 50 * depthFactor + 'px');
+        .css('height', 50 * depthFactor + 'px')
+        .css('margin-top', -9 * depthFactor + 'px')
+        .css('font-size', 18 * depthFactor + 'px');
   }
 }
 Clip.prototype.preview = function(){

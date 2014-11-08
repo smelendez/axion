@@ -40,3 +40,17 @@ body {
   font-size: 11px;
 
 }
+.clip .playbutton {
+  position: absolute;
+  color: purple;
+  width: 100%;
+  top: 50%;
+  
+  text-align: center;
+  display: none;
+
+}
+.clip:hover .playbutton {
+  display: inline-block;
+
+}
