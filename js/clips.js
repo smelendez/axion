@@ -30,14 +30,22 @@ Clip.prototype.setPos = function(ctx) {
         .css('margin-top', -(.18 * 85) + 'px')
         .css('font-size', (.36 * 85) + 'px');
   } else {
-    var depthFactor = 1 / (1 +  Math.exp(8 * Math.abs(this.depth - ctx.depth) - 4));
+    var depthFactor = 1 / (0.8 + Math.abs(this.depth - ctx.depth));
     var seqFactor = 1 / Math.pow(Math.abs(this.seq - ctx.seq), 0.5);
     var sizeFactor = depthFactor * seqFactor;
 
-    var left = ((this.seq - ctx.seq) * 120);
-    if (left > 0) left += 930; else left += 350;
+    var left = ((this.seq - ctx.seq) * 80);
+    if (left > 0) left += 850; else left += 350;
+    if (left > 1080) {
+      sizeFactor = 0;
+      left = 1080;
+    }
+    if (left < 0) {
+      sizeFactor = 0;
+      left = 0;
+    }
 
-    var vertRange = 720 / Math.abs(this.seq - ctx.seq);
+    var vertRange = 720 / Math.pow(Math.abs(this.seq - ctx.seq), 0.5);
 
     var vertNoise = Math.random() * 40 - 20;
     this.dom
