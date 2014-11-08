@@ -7,12 +7,12 @@ body {
 .playerdot {
   height: 20px;
   width: 20px;
-  border-radius: 20px;
-  background-color: purple;
-  position: absolute;
+  border-radius: 25px; 
   cursor: pointer;
-  display: none;
-  
+  border: solid 1px pink;
+}
+.playerdot.filled {
+  background-color: pink;
 
 }
 #viewport {
@@ -23,6 +23,16 @@ body {
   width: 1280px;
   margin: -360px 0 0 -640px;
 }
+#viewport #clock {
+  position: absolute;
+  top: 85px;
+  height: 550px;
+  width: 550px;
+  left: 365px;
+  z-index: 10;
+
+
+}
 #viewport video {
   position: absolute;
   top: 85px;
@@ -30,8 +40,7 @@ body {
   width: 550px;
   left: 365px;
   cursor: pointer;
-  border-radius: 500px;
-  border: solid 2px pink;
+  border-radius: 550px;
 }
 .clip {
   position: absolute;
