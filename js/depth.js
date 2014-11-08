@@ -48,7 +48,7 @@ $(document).ready(function(){
 
   }
 
-  window.DEPTHMETER = new DepthMeter($('#viewport'), 0);
+  window.DEPTHMETER = new DepthMeter($('#viewport'), 0.5);
 
 
 

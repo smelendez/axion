@@ -72,7 +72,6 @@ $(document).ready(function(){
     new Clip('media/placeholder_head.png', 3, 0.5)
   ]);
   window.CLIPS.show(0, 0.5);
-  window.setTimeout(function() { window.CLIPS.setCurSeq(1); });
 });
 
 
