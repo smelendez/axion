@@ -6,7 +6,6 @@ function Clip(screenshot, seq, depth) {
   this.seq = seq;
 }
 Clip.prototype.setPos = function(ctx) {
-  // TODO: noising position
   // TODO: actual animation w/ circular paths around main video
   var depthFactor = 1 / (1 +  Math.exp(8 * Math.abs(this.depth - ctx.depth) - 4));
   if (this.seq < ctx.seq) {
@@ -21,9 +20,11 @@ Clip.prototype.setPos = function(ctx) {
         .css('width', 200 * depthFactor + 'px')
         .css('height', 200 * depthFactor + 'px'); 
   } else {
+    var vertNoise = Math.random() * 40 - 20;
+    var horizNoise = Math.random() * 40 - 20;
     this.dom
-        .css('top', 220 + ((ctx.seq - this.seq) * 100) + 'px')
-        .css('left', ((this.depth - ctx.depth)/2 + 0.5) * 1280 + 'px')
+        .css('top', vertNoise + 150 + ((ctx.seq - this.seq) * 50) + 'px')
+        .css('left', horizNoise + ((this.depth - ctx.depth)/2 + 0.5) * 1280 + 'px')
         .css('width', 50 * depthFactor + 'px')
         .css('height', 50 * depthFactor + 'px');
   }
