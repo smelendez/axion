@@ -129,6 +129,10 @@ $(document).ready(function(){
     new Clip('media/star_head.png', 'media/video_1.mp4', 3, 0.5)
   ]);
   window.CLIPS.show();
+  $('video').on('click', function(){
+    if (PLAYER.paused()) PLAYER.play(); else PLAYER.pause();
+
+  });
 });
 
 
