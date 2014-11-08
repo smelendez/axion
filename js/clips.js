@@ -49,6 +49,10 @@ Clip.prototype.show = function(ctx) {
   }).on('mouseout', function(){
     $('#hover_preview').hide();
 
+  }).on('click', function(){
+    // Dummy function for now
+    PLAYER.play();
+  
   });
 }
 
@@ -91,6 +95,7 @@ $(document).ready(function(){
     new Clip('media/star_head.png', 3, 0.5)
   ]);
   window.CLIPS.show(0, 0.5);
+  
 });
 
 

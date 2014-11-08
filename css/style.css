@@ -18,6 +18,7 @@ body {
   height: 550px;
   width: 550px;
   left: 365px;
+  cursor: pointer;
 }
 .clip {
   position: absolute;
