@@ -6,16 +6,16 @@ function Clip(screenshot, seq, depth) {
   this.depth = depth;
   this.seq = seq;
 }
-Clip.prototype.setPos = function() {
+Clip.prototype.setPos = function(ctx) {
   // TODO: noising position
   // TODO: actual animation w/ circular paths around main video
-  var depthFactor = 1 / (1 +  Math.exp(8 * Math.abs(this.depth - this.cur_depth) - 4));
-  if (this.seq < this.cur_seq) {
+  var depthFactor = 1 / (1 +  Math.exp(8 * Math.abs(this.depth - ctx.depth) - 4));
+  if (this.seq < ctx.seq) {
     this.dom.css('top', '900px').css('width', '1px').css('height', '1px');
-  } else if (this.seq == this.cur_seq) {
-    var left = (this.depth - this.video_depth) * 300;
-    if (this.depth < this.video_depth) left += 300;
-    if (this.depth > this.video_depth) left += 980;
+  } else if (this.seq == ctx.seq) {
+    var left = (this.depth - ctx.video_depth) * 300;
+    if (this.depth < ctx.video_depth) left += 300;
+    if (this.depth > ctx.video_depth) left += 980;
     this.dom
         .css('top', '360px')
         .css('left', left + 'px')
@@ -23,8 +23,8 @@ Clip.prototype.setPos = function() {
         .css('height', 200 * depthFactor + 'px'); 
   } else {
     this.dom
-        .css('top', 220 + ((this.cur_seq - this.seq) * 100) + 'px')
-        .css('left', ((this.depth - this.cur_depth)/2 + 0.5) * 1280 + 'px')
+        .css('top', 220 + ((ctx.seq - this.seq) * 100) + 'px')
+        .css('left', ((this.depth - ctx.depth)/2 + 0.5) * 1280 + 'px')
         .css('width', 50 * depthFactor + 'px')
         .css('height', 50 * depthFactor + 'px');
   }
@@ -33,12 +33,9 @@ Clip.prototype.preview = function(){
     return '<img width="200px" height="200px" id="preview_screenshot" src="' + this.screenshot + '" /> <div id="preview_title">Lorem Ipsum</div>'
 
 }
-Clip.prototype.show = function(cur_seq, cur_depth) {
+Clip.prototype.show = function(ctx) {
   var that = this;
-  this.cur_seq = cur_seq;
-  this.cur_depth = cur_depth;
-  this.video_depth = cur_depth;
-  this.setPos();
+  this.setPos(ctx);
   this.dom.appendTo($('body'));
   this.dom.on('mouseover', function(){
     console.log(that.preview());
@@ -50,33 +47,34 @@ Clip.prototype.show = function(cur_seq, cur_depth) {
 
   });
 }
-Clip.prototype.changePlaying = function(cur_seq, video_depth) {
-  this.cur_seq = cur_seq;
-  this.video_depth = video_depth;
-  // TODO: what if this clip is playing?
-  this.setPos();
-}
-Clip.prototype.setCurDepth = function(cur_depth) {
-  this.cur_depth = cur_depth;
-  this.setPos();
-}
 
 function Clips(vid_list) {
+  this.context = {
+    depth: 0.5,
+    seq: 0,
+    video_depth: 0.5
+  }; 
   this.videos = vid_list;
 }
 Clips.prototype.changePlaying = function(cur_seq, video_depth) {
+  var clips = this;
+  this.context.seq = cur_seq;
+  this.context.video_depth = video_depth;
   this.videos.forEach(function(video) {
-    video.changePlaying(cur_seq, video_depth);
+    video.setPos(clips.context);
   });
 }
 Clips.prototype.setCurDepth = function(cur_depth) {
+  var clips = this;
+  this.context.depth = cur_depth;
   this.videos.forEach(function(video) {
-    video.setCurDepth(cur_depth);
+    video.setPos(clips.context);
   });
 }
 Clips.prototype.show = function(cur_seq, cur_depth)  {
+  var clips = this;
   this.videos.forEach(function(video) {
-    video.show(cur_seq, cur_depth);
+    video.show(clips.context);
   });
 }
 
