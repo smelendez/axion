@@ -1,10 +1,15 @@
-function Clip(screenshot, depth, seq) {
-  this.dom = $('<div/>');
-  this.img = $('<img/>');
+function Clip(screenshot, seq, depth) {
+  this.dom = $('<div class="clip" />');
+  this.img = $('<img width="100px"/>');
   this.img.attr('src', screenshot).appendTo(this.dom);
   // TODO: mask
   this.depth = depth;
   this.seq = seq;
+}
+Clip.prototype.setPos = function() {
+  // TODO: noising position
+  this.dom.css('top', this.seq * 100 + 'px');
+  this.dom.css('left', ((this.depth - this.cur_depth)/2 + 0.5) * 100 + '%');
 }
 Clip.prototype.show = function(cur_seq, cur_depth) {
   this.cur_seq = cur_seq;
@@ -34,9 +39,18 @@ Clips.prototype.setCurDepth = function(cur_depth) {
     video.setCurDepth(cur_depth);
   });
 }
+Clips.prototype.show = function(cur_seq, cur_depth)  {
+  this.videos.forEach(function(video) {
+    video.show(cur_seq, cur_depth);
+  });
+}
 
 $(document).ready(function(){
-  window.CLIPS = new Clips([]);
+  window.CLIPS = new Clips([
+    new Clip('media/placeholder_head.png', 0, 0.81),
+    new Clip('media/placeholder_head_2.png', 1, 0.16)
+  ]);
+  window.CLIPS.show(0, 0.5);
 });
 
 
