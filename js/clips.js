@@ -39,7 +39,6 @@ Clip.prototype.show = function(ctx) {
   this.setPos(ctx);
   this.dom.appendTo($('body'));
   this.dom.on('mouseover', function(){
-    console.log(that.preview());
     $('#hover_preview').html(that.preview()).show();
     
 
