@@ -138,6 +138,8 @@ Clips.prototype.playNext = function() {
   if (best_clip) {
     this.play(best_clip);
     return best_clip.media;
+  } else {
+    return null;
   }
 }
 
@@ -159,9 +161,6 @@ $(document).ready(function(){
     new Clip('media/star_head.png', 'media/4-06.mp4', 3, 0.9),
   ]);
   window.CLIPS.show();
-  $('video').on('click', function(){
-    if (PLAYER.paused()) PLAYER.play(); else PLAYER.pause();
-  });
 });
 
 
