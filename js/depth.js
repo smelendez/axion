@@ -3,7 +3,6 @@ $(document).ready(function(){
   var curDepth;
 
   function DepthMeter($parent, startingDepth){
-    this.curDepth = startingDepth || 0;
     this.$container = $('<div id="depthMeterContainer"></div>');
     this.$dots = [];
     var that = this;
@@ -22,6 +21,7 @@ $(document).ready(function(){
       that.setCurDepth(0.1 * index);
 
     });
+    this.setCurDepth(startingDepth || 0);
     
   }
 
