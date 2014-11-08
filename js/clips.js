@@ -11,17 +11,21 @@ function Clip(screenshot, media, seq, depth) {
 Clip.prototype.setPos = function(ctx) {
   // TODO: actual animation w/ circular paths around main video
   if (this.playing) {
-    this.dom
-        .css('opacity', '0')
-        .css('width', '550px')
-        .css('height', '550px')
-        .css('top', '170px')
-        .css('left', '365px');
+    var clip = this;
+    this.dom.css('opacity', '0')
+    setTimeout(function() {
+      clip.dom.css('visibility', 'hidden');
+    }, 5000);
     return;
   }
-  
-  var depthFactor = 1 / (1 +  Math.exp(8 * Math.abs(this.depth - ctx.depth) - 4));
+  if (this.dom.css('visbility') == 'hidden') {
+    setTimeout(function() {
+      clip.dom.css('visibility', 'visible');
+    }, 5000);
+  }
   this.dom.css('opacity', '1');
+
+  var depthFactor = 1 / (1 +  Math.exp(8 * Math.abs(this.depth - ctx.depth) - 4));
   if (this.seq < ctx.seq) {
     this.dom.css('top', '900px').css('width', '1px').css('height', '1px');
   } else if (this.seq == ctx.seq) {

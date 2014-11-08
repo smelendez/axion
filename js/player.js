@@ -5,6 +5,7 @@ $(document).ready(function(){
     $('#player').attr('src', nextMedia);
     PLAYER.play();
   });
-  $('#player').attr('src', CLIPS.playNext());
-    
+  PLAYER.on('ended', function() {
+    $('#player').attr('src', CLIPS.playNext());
+  }); 
 });
