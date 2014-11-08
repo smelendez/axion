@@ -32,8 +32,25 @@ body {
   top: 0;
   right: 50px;
   width: 200px;
-  height: 200px;
   background-color: #000;
   display: none;
+  color: #aaa;
+  font-family: Helvetica, Arial, sans-serif;
+  text-align: center;
+  font-size: 11px;
+
+}
+.clip .playbutton {
+  position: absolute;
+  color: purple;
+  width: 100%;
+  top: 50%;
+  
+  text-align: center;
+  display: none;
+
+}
+.clip:hover .playbutton {
+  display: inline-block;
 
 }
