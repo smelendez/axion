@@ -8,4 +8,7 @@ $(document).ready(function(){
   PLAYER.on('ended', function() {
     $('#player').attr('src', CLIPS.playNext());
   }); 
+  PLAYER.on('timeupdate', function(){
+
+  });
 });

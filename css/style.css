@@ -4,6 +4,17 @@ body {
   padding: 0;
   position: fixed;
 }
+.playerdot {
+  height: 20px;
+  width: 20px;
+  border-radius: 20px;
+  background-color: purple;
+  position: absolute;
+  cursor: pointer;
+  display: none;
+  
+
+}
 #viewport {
   position: fixed;
   top: 50%;
@@ -19,6 +30,8 @@ body {
   width: 550px;
   left: 365px;
   cursor: pointer;
+  border-radius: 500px;
+  border: solid 2px pink;
 }
 .clip {
   position: absolute;

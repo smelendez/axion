@@ -83,6 +83,26 @@ $(document).ready(function(){
 
   });
 
+  // Set up progress dots
+
+
+
+  var $player = $('#player');
+  var playerCenter = $player.position();
+  playerCenter.top += $player.height() / 2;
+  playerCenter.left += $player.width() / 2;
+  var radius = 250;
+
+  for (var i = 1; i <= 12; i ++) {
+    var $dot = $('<div id="playerdot-' + i + '" class="playerdot"></div>');
+    $dot.css({
+     top: playerCenter.top + Math.sin((i / 12) * 2 * Math.PI) * radius + 'px',
+     left: playerCenter.left + Math.cos((i / 12) * 2 * Math.PI) * radius + 'px'
+
+    });
+    $('#viewport').append($dot);
+  }
+
 
 
 
