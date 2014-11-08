@@ -1,6 +1,7 @@
 function Clip(screenshot, seq, depth) {
-  this.dom = $('<div class="clip" />')
-    .css('background-image', 'url("' + screenshot + '")');
+  this.dom = $('<div class="clip" />');
+  this.dom.appendTo($('body'));
+  $('<image x="0" y="0" width="100%" height="100%" xlink:href="' + screenshot + '">').appendTo(this.dom);
   // TODO: mask
   this.depth = depth;
   this.seq = seq;
@@ -33,10 +34,10 @@ Clip.prototype.show = function(cur_seq, cur_depth) {
   this.cur_seq = cur_seq;
   this.cur_depth = cur_depth;
   this.setPos();
-  this.dom.appendTo($('body'));
 }
-Clip.prototype.setCurSeq = function(cur_seq) {
+Clip.prototype.changePlaying = function(cur_seq, video_depth) {
   this.cur_seq = cur_seq;
+  this.video_depth = video_depth;
   this.setPos();
 }
 Clip.prototype.setCurDepth = function(cur_depth) {
@@ -47,14 +48,14 @@ Clip.prototype.setCurDepth = function(cur_depth) {
 function Clips(vid_list) {
   this.videos = vid_list;
 }
-Clips.prototype.setCurSeq = function(cur_seq) {
-  this.videos.forEach(function(video) {
-    video.setCurSeq(cur_seq);
-  });
-}
 Clips.prototype.setCurDepth = function(cur_depth) {
   this.videos.forEach(function(video) {
     video.setCurDepth(cur_depth);
+  });
+}
+Clips.prototype.changePlaying = function(cur_seq, video_depth) {
+  this.videos.forEach(function(video) {
+    video.changePlaying(cur_seq,video_depth);
   });
 }
 Clips.prototype.show = function(cur_seq, cur_depth)  {
@@ -72,7 +73,6 @@ $(document).ready(function(){
     new Clip('media/placeholder_head.png', 3, 0.5)
   ]);
   window.CLIPS.show(0, 0.5);
-  window.setTimeout(function() { window.CLIPS.setCurSeq(1); });
 });
 
 

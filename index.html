@@ -13,8 +13,18 @@
 
   </head>
   <body>
+    <svg>
+     <defs>
+       <mask id="mask1" x="0" y="0" width="80" height="80" >
+         <image xlink:href="media/mask.png" x="0" y="0" height="80" width="80"/>
+       </mask>
+     </defs>
+     </svg>
+     <svg width="90px" height="90px" class="clip">
+     <image xlink:href="media/placeholder_head.png" x="0" y="0" height="100%" width="100%" style="mask: url(#mask1)"/>
+    </svg> 
     <div id="viewport">
-      <div id="video_placeholder"/>
+    	<div id="video_placeholder"/>
     </div>
   </body>
 </html>
