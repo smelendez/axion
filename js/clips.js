@@ -10,19 +10,24 @@ function Clip(screenshot, media, seq, depth) {
 }
 Clip.prototype.setPos = function(ctx) {
   // TODO: actual animation w/ circular paths around main video
-  var depthFactor = 1 / (1 +  Math.exp(8 * Math.abs(this.depth - ctx.depth) - 4));
   if (this.playing) {
-    this.dom.css('opacity', '0');
-  } else {
-    this.dom.css('opacity', '1');
+    this.dom
+        .css('opacity', '0')
+        .css('width', '550px')
+        .css('height', '550px')
+        .css('top', '170px')
+        .css('left', '365px');
+    return;
   }
-
+  
+  var depthFactor = 1 / (1 +  Math.exp(8 * Math.abs(this.depth - ctx.depth) - 4));
+  this.dom.css('opacity', '1');
   if (this.seq < ctx.seq) {
     this.dom.css('top', '900px').css('width', '1px').css('height', '1px');
   } else if (this.seq == ctx.seq) {
     var left = (this.depth - ctx.video_depth) * 300;
     if (this.depth < ctx.video_depth) left += 300;
-    if (this.depth > ctx.video_depth) left += 980;
+    else if (this.depth > ctx.video_depth) left += 980;
     this.dom
         .css('top', '360px')
         .css('left', left + 'px')
