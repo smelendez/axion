@@ -29,4 +29,7 @@ $(document).ready(function(){
 
     }
   });
+  $('#clock').on('click', function() {
+   if (PLAYER.paused()) PLAYER.play(); else PLAYER.pause();
+  });
 });
