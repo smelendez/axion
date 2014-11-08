@@ -12,13 +12,12 @@ body {
   width: 1280px;
   margin: -360px 0 0 -640px;
 }
-#video_placeholder {
+#viewport video {
   position: absolute;
   bottom: 0;
   height: 550px;
   width: 550px;
   left: 365px;
-  background: white;
 }
 .clip {
   position: absolute;

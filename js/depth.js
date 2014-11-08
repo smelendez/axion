@@ -57,6 +57,7 @@ $(document).ready(function(){
     switch(e.which){
       case 32:
         // Space bar
+        if (PLAYER.paused()) PLAYER.play(); else PLAYER.pause();
         break;
 
       case 37:
