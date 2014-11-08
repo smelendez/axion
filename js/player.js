@@ -1,13 +1,18 @@
 $(document).ready(function(){
   window.PLAYER = Popcorn('#player');
-  PLAYER.on('ended', function() {
-    var nextMedia = CLIPS.playNext();
-    $('#player').attr('src', nextMedia);
-    PLAYER.play();
+  window.CANCEL = false;
+  PLAYER.on('play', function() {
+    CANCEL = true;
   });
   PLAYER.on('ended', function() {
-    $('#player').attr('src', CLIPS.playNext());
-  }); 
+    CANCEL = false;
+    setTimeout(function() {
+        if (CANCEL) return;
+	var nextMedia = CLIPS.playNext();
+	$('#player').attr('src', nextMedia);
+	PLAYER.play(); }, 1000);
+  });
+  $('#player').attr('src', CLIPS.playNext());
   PLAYER.on('timeupdate', function(){
     var ct = PLAYER.currentTime();
     var duration = PLAYER.duration();

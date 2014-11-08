@@ -24,20 +24,28 @@ Clip.prototype.setPos = function(ctx) {
     var top = (this.depth < ctx.video_depth) ? 0 : 635;
     this.dom
         .css('top', (top + (.18 * 85)) + 'px')
-        .css('left', '600px')
+        .css('left', 400 + (100 * this.depth_order) + 'px')
         .css('width', '85px')
         .css('height', '85px')
         .css('margin-top', -(.18 * 85) + 'px')
         .css('font-size', (.36 * 85) + 'px');
   } else {
-    var depthFactor = 1 / (1 +  Math.exp(8 * Math.abs(this.depth - ctx.depth) - 4));
+    var depthFactor = 1 / (0.8 + Math.abs(this.depth - ctx.depth));
     var seqFactor = 1 / Math.pow(Math.abs(this.seq - ctx.seq), 0.5);
     var sizeFactor = depthFactor * seqFactor;
 
-    var left = ((this.seq - ctx.seq) * 120);
-    if (left > 0) left += 930; else left += 350;
+    var left = ((this.seq - ctx.seq) * 80);
+    if (left > 0) left += 850; else left += 350;
+    if (left > 1080) {
+      sizeFactor = 0;
+      left = 1080;
+    }
+    if (left < 0) {
+      sizeFactor = 0;
+      left = 0;
+    }
 
-    var vertRange = 720 / Math.abs(this.seq - ctx.seq);
+    var vertRange = 720 / Math.pow(Math.abs(this.seq - ctx.seq), 0.5);
 
     var vertNoise = Math.random() * 40 - 20;
     this.dom
@@ -84,6 +92,14 @@ function Clips(vid_list) {
     video_depth: 0.5
   }; 
   this.videos = vid_list;
+  var depth_order = 0;
+  for (var i = 0; i < this.videos.length; ++i) {
+    if (i > 0 && this.videos[i].seq > this.videos[i-1].seq) {
+      depth_order = 0;
+    } 
+    this.videos[i].depth_order = depth_order;
+    ++depth_order;
+  }
 }
 Clips.prototype.play = function(playing) {
   var clips = this;
@@ -127,8 +143,9 @@ Clips.prototype.playNext = function() {
 
 $(document).ready(function(){
   window.CLIPS = new Clips([
-    new Clip('media/star_head.png', 'media/video_1.mp4', 0, 0.61),
-    new Clip('media/star_head_2.png', 'media/video_1.mp4', 1, 0.1),
+    new Clip('media/star_head.png', 'media/1-07.mp4', 0, 0.2),
+    new Clip('media/star_head.png', 'media/1-08.mp4', 0, 0.5),
+    new Clip('media/star_head_2.png', 'media/1-09.mp4', 0, 0.7),
     new Clip('media/star_head_2.png', 'media/video_1.mp4', 1, 0.75),
     new Clip('media/star_head.png', 'media/video_1.mp4', 2, 0.9),
     new Clip('media/star_head.png', 'media/video_1.mp4', 3, 0.5)
