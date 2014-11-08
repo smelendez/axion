@@ -30,7 +30,7 @@ Clip.prototype.setPos = function(ctx) {
   }
 }
 Clip.prototype.preview = function(){
-    return '<img width="200px" height="200px" id="preview_screenshot" src="' + this.screenshot + '" /> <div id="preview_title">Lorem Ipsum</div>'
+    return '<img width="200px" height="200px" id="preview_screenshot" src="' + this.screenshot + '" /> <div id="preview_title">Dr. Horatio Darkmatter:<br /> "I believe in science"</div>'
 
 }
 Clip.prototype.show = function(ctx) {
