@@ -24,7 +24,7 @@ Clip.prototype.setPos = function(ctx) {
     var top = (this.depth < ctx.video_depth) ? 0 : 635;
     this.dom
         .css('top', (top + (.18 * 85)) + 'px')
-        .css('left', '600px')
+        .css('left', 400 + (100 * this.depth_order) + 'px')
         .css('width', '85px')
         .css('height', '85px')
         .css('margin-top', -(.18 * 85) + 'px')
@@ -84,6 +84,14 @@ function Clips(vid_list) {
     video_depth: 0.5
   }; 
   this.videos = vid_list;
+  var depth_order = 0;
+  for (var i = 0; i < this.videos.length; ++i) {
+    if (i > 0 && this.videos[i].seq > this.videos[i-1].seq) {
+      depth_order = 0;
+    } 
+    this.videos[i].depth_order = depth_order;
+    ++depth_order;
+  }
 }
 Clips.prototype.play = function(playing) {
   var clips = this;
@@ -127,8 +135,9 @@ Clips.prototype.playNext = function() {
 
 $(document).ready(function(){
   window.CLIPS = new Clips([
-    new Clip('media/star_head.png', 'media/video_1.mp4', 0, 0.61),
-    new Clip('media/star_head_2.png', 'media/video_1.mp4', 1, 0.1),
+    new Clip('media/star_head.png', 'media/1-07.mp4', 0, 0.2),
+    new Clip('media/star_head.png', 'media/1-08.mp4', 0, 0.5),
+    new Clip('media/star_head_2.png', 'media/1-09.mp4', 0, 0.7),
     new Clip('media/star_head_2.png', 'media/video_1.mp4', 1, 0.75),
     new Clip('media/star_head.png', 'media/video_1.mp4', 2, 0.9),
     new Clip('media/star_head.png', 'media/video_1.mp4', 3, 0.5)
