@@ -6,22 +6,17 @@ function Clip(screenshot, media, seq, depth) {
   this.media = media;
   this.depth = depth;
   this.seq = seq;
-  this.playing = false;
 }
 Clip.prototype.setPos = function(ctx) {
   // TODO: actual animation w/ circular paths around main video
   if (this.playing) {
     var clip = this;
     this.dom.css('opacity', '0')
-    setTimeout(function() {
-      clip.dom.css('visibility', 'hidden');
-    }, 5000);
+        .css('top', '170px')
+        .css('left', '365px')
+        .css('width', '550px')
+        .css('height', '550px');
     return;
-  }
-  if (this.dom.css('visbility') == 'hidden') {
-    setTimeout(function() {
-      clip.dom.css('visibility', 'visible');
-    }, 5000);
   }
   this.dom.css('opacity', '1');
 
@@ -71,8 +66,9 @@ Clip.prototype.show = function(ctx) {
 
   }).on('click', function(){
     // Dummy function for now
+    CLIPS.play(that);
+    $('#player').attr('src', that.media);
     PLAYER.play();
-  
   });
 }
 
@@ -84,10 +80,10 @@ function Clips(vid_list) {
   }; 
   this.videos = vid_list;
 }
-Clips.prototype.changePlaying = function(cur_seq, video_depth, playing) {
+Clips.prototype.play = function(playing) {
   var clips = this;
-  this.context.seq = cur_seq;
-  this.context.video_depth = video_depth;
+  this.context.seq = playing.seq;
+  this.context.video_depth = playing.depth;
   this.videos.forEach(function(video) {
     video.setPlaying(video == playing);
     video.setPos(clips.context);
@@ -119,7 +115,7 @@ Clips.prototype.playNext = function() {
     }
   });
   if (best_clip) {
-    this.changePlaying(best_clip.seq, best_clip.depth, best_clip);
+    this.play(best_clip);
     return best_clip.media;
   }
 }
@@ -135,7 +131,6 @@ $(document).ready(function(){
   window.CLIPS.show();
   $('video').on('click', function(){
     if (PLAYER.paused()) PLAYER.play(); else PLAYER.pause();
-
   });
 });
 
