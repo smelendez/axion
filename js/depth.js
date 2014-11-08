@@ -6,15 +6,23 @@ $(document).ready(function(){
     this.curDepth = startingDepth || 0;
     this.$container = $('<div id="depthMeterContainer"></div>');
     this.$dots = [];
+    var that = this;
     $parent.append(this.$container);
     for (var i =0; i < 10; i++) {
-      var $dot = $('<div class="depthMeterDot"></div>');
+      var $dot = $('<div class="depthMeterDot" id="depthMeterDot-' + (i+1) + '"></div>');
       $dot.css({
         left: (5 + i * 10) + '%'
       });
       this.$dots.push($dot);
       this.$container.append($dot);
     }
+    $('.depthMeterDot').on('click',function(){
+      var $this = $(this);
+      var index = $this.attr('id').split('-')[1];
+      that.setCurDepth(0.1 * index);
+
+    });
+    
   }
 
   DepthMeter.prototype.setCurDepth = function(curDepth){
@@ -31,22 +39,18 @@ $(document).ready(function(){
 
     }
   }
-
-  window.DEPTHMETER = new DepthMeter($('body'), 0);
-
-  function setDepth(){
-    curDepth = 0.1 * ypos;
-    if (curDepth < 0) {
-      curDepth = 0;
-      ypos = 0;
-    }
-    if (curDepth > 1) {
-      curDepth = 1;
-      ypos = 10;
-    }
-    DEPTHMETER.setCurDepth(curDepth);
+  DepthMeter.prototype.incrementDepth = function(){
+    this.setCurDepth(Math.min(this.curDepth+0.1, 1))
 
   }
+  DepthMeter.prototype.decrementDepth = function(){
+    this.setCurDepth(Math.max(this.curDepth-0.1, 0))
+
+  }
+
+  window.DEPTHMETER = new DepthMeter($('#viewport'), 0);
+
+
 
   $(document).on('keyup', function(e){
 
@@ -67,14 +71,12 @@ $(document).ready(function(){
 
       case 38:
         // Up arrow
-        ypos++;
-        setDepth();
+        DEPTHMETER.incrementDepth();
         break;
 
       case 40: 
         // Down arrow
-        ypos--;
-        setDepth();
+        DEPTHMETER.decrementDepth();
         break;
     }
 
