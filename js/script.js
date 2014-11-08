@@ -7,8 +7,9 @@ function Clip(screenshot, seq, depth) {
   this.seq = seq;
 }
 Clip.prototype.setPos = function() {
+  // TODO: noising position
   this.dom.css('top', this.seq * 100 + 'px');
-  this.dom.css('left', ((this.depth - this.cur_depth)/2 + 0.5) * 50 + '%');
+  this.dom.css('left', ((this.depth - this.cur_depth)/2 + 0.5) * 100 + '%');
 }
 Clip.prototype.show = function(cur_seq, cur_depth) {
   this.cur_seq = cur_seq;
