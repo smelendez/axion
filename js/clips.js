@@ -38,7 +38,8 @@ function animate(obj, from_x, from_y, to_x, to_y, duration, opt_ca) {
    }, 10);
    return intv;
 }
-function animateLinear(obj, from_x, from_y, to_x, to_y, duration) {
+function animateLinear(obj, from_x, from_y, to_x, to_y, duration, opt_ca) {
+  if (opt_ca) clearInterval(opt_ca);
   var easer = d3.ease('cubic-in-out');
   var start = new Date().getTime();
   var intv = setInterval(function() {
@@ -52,6 +53,7 @@ function animateLinear(obj, from_x, from_y, to_x, to_y, duration) {
     obj.css({'top': ((1-incr) * from_y + incr * to_y),
              'left': ((1-incr) * from_x + incr * to_x)});
    }, 10);
+  return intv;
 }
 
 function Clip(screenshot, media, seq, depth, title) {
