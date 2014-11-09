@@ -37,4 +37,15 @@ function stage3() {
   // Use the space bar to play and stop the video
 }
 
+function clearIntro() {
+  if (!INTRO) return;
+  $('#intro').css('visibility', 'hidden');
+  INTRO = false;
+  INTRO_CUES.forEach(function(cue) {
+    clearTimeout(cue);
+  });
+  PLAYER.play();
+}
+  
+
 $(document).ready(stage1);  

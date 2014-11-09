@@ -66,12 +66,7 @@ $(document).ready(function(){
   $(document).on('keydown', function(e){
     if (INTRO) {
       if (e.which == 32) {
-	$('#intro').css('visibility', 'hidden');
-        INTRO = false;
-        INTRO_CUES.forEach(function(cue) {
-          clearTimeout(cue);
-        });
-        PLAYER.play();
+        clearIntro();
       }
       return;
     }

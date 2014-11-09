@@ -89,6 +89,7 @@ function Chapter(color, seq) {
      .css('background-color', color);
   var number = this.dom.append('<span>' + (seq+1) + '</span>');
   number.on('click', function() {
+    clearIntro();
     var media = CLIPS.playNext(seq);
     $('#player').attr('src', media);
     PLAYER.play();
@@ -223,7 +224,7 @@ Clip.prototype.show = function(ctx, lowest) {
     $('#hover_preview').hide();
 
   }).on('click', function(){
-    // Dummy function for now
+    clearIntro();
     CLIPS.play(that);
     $('#player').attr('src', that.media);
     PLAYER.play();
