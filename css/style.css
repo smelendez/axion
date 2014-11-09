@@ -19,17 +19,15 @@ body {
   top: 75px;
   height: 570px;
   width: 570px;
-  left: 355px;
+  left: 315px;
   z-index: 10;
-
-
 }
 #viewport video {
   position: absolute;
   top: 85px;
   height: 550px;
   width: 550px;
-  left: 365px;
+  left: 325px;
   cursor: pointer;
   border-radius: 550px;
 }
