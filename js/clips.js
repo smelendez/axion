@@ -1,8 +1,8 @@
 function animate(obj, from_x, from_y, to_x, to_y, duration, opt_ca) {
   if (opt_ca) clearInterval(opt_ca);
-  from_x -= 610;
+  from_x -= 570;
   from_y -= 345;
-  to_x -= 610;
+  to_x -= 570;
   to_y -= 345;
 
   var Y_AXIS = 300;
@@ -20,7 +20,7 @@ function animate(obj, from_x, from_y, to_x, to_y, duration, opt_ca) {
     var cur = new Date().getTime();
     var incr = easer((cur - start) / parseFloat(duration));
     if (incr >= 1) {
-      obj.css({'top': to_y + 345, 'left': to_x + 610});
+      obj.css({'top': to_y + 345, 'left': to_x + 570});
       clearInterval(intv);
       return;
     }
@@ -33,7 +33,7 @@ function animate(obj, from_x, from_y, to_x, to_y, duration, opt_ca) {
     if (to_y < 0) pos_y = -pos_y;
     obj.css({
       'top': pos_y + 345,
-      'left': pos_x + 610
+      'left': pos_x + 570
     });
    }, 10);
    return intv;
@@ -89,10 +89,10 @@ Chapter.prototype.setPos = function(ctx, opt_noAnimate) {
   var oldWidth = parseFloat(this.dom.css('width'));
   var newWidth = (ctx.seq == this.seq) ? 580 : 80;
   var newLeft = ((this.seq - ctx.seq) * 80);
-  if (newLeft > 0) newLeft += 850; else newLeft += 350;
-  if (newLeft > 1090) {
+  if (newLeft > 0) newLeft += 810; else newLeft += 310;
+  if (newLeft > 1050) {
       newWidth = 0;
-      newLeft = 1090;
+      newLeft = 1050;
   }
   if (newLeft < 0) {
      newWidth = 0;
@@ -153,8 +153,8 @@ Clip.prototype.setPos = function(ctx, lowest, opt_noAnimate) {
   var newTop, newLeft, newWidth, newHeight;
   if (this.seq == ctx.seq) {
     newTop = (this.depth < ctx.video_depth) ? 15 : 645;
-    newLeft =  400 + (100 * this.depth_order);
-    if (newLeft >= 600) newLeft += 140;
+    newLeft =  360 + (100 * this.depth_order);
+    if (newLeft >= 560) newLeft += 140;
     newWidth = 75;
     newHeight = 75;
   } else {
@@ -163,10 +163,10 @@ Clip.prototype.setPos = function(ctx, lowest, opt_noAnimate) {
     var sizeFactor = depthFactor * seqFactor;
 
     newLeft = ((this.seq - ctx.seq) * 80);
-    if (newLeft > 0) newLeft += 870; else newLeft += 370;
-    if (newLeft > 1110) {
+    if (newLeft > 0) newLeft += 830; else newLeft += 310;
+    if (newLeft > 1070) {
       sizeFactor = 0;
-      newLeft = 1110;
+      newLeft = 1070;
     }
     if (newLeft < 0) {
       sizeFactor = 0;
@@ -270,13 +270,36 @@ Clips.prototype.setCurDepth = function(cur_depth) {
   this.context.depth = cur_depth;
   var lowest = 0;
   var seq = 0;
+
+  var playingVid = null;
+  var playingDiff = 2;
+  var bestVid = null;
+  var bestDiff = 2;
+
   this.videos.forEach(function(video) {
+    if (video.playing) {
+      playingVid = video;
+      playingDiff = Math.abs(video.depth - clips.context.depth);
+    }
+    if (video.seq == clips.context.seq) {
+      var diff = Math.abs(video.depth - clips.context.depth);
+      if (diff < bestDiff) {
+        bestDiff = diff;
+        bestVid = video;
+      }
+    }
     if (video.seq != seq) {
       lowest = 0;
       seq = video.seq;
     }
     lowest = video.setPos(clips.context, lowest);
   });
+
+  if (playingDiff - bestDiff > 0.1) {
+    this.play(bestVid);
+    $('#player').attr('src', bestVid.media);
+    PLAYER.play();
+  }
 }
 Clips.prototype.show = function()  {
   var clips = this;
@@ -329,10 +352,10 @@ $(document).ready(function(){
     new Clip({screenshot: 'media/star_head.png', media:  'media/4-04.mp4', seq: 3, depth: 0.5, speakername: 'Horatio Darkmatter', title: 'Physics is Poetry'}),
     new Clip({screenshot: 'media/star_head.png', media:  'media/4-06.mp4', seq: 3, depth: 0.9, speakername: 'Horatio Darkmatter', title: 'Physics is Poetry'})
   ],
-  [new Chapter('#001', 0),
-   new Chapter('#002', 1),
-   new Chapter('#003', 2),
-   new Chapter('#004', 3)]);
+  [new Chapter('#070711', 0),
+   new Chapter('#09091B', 1),
+   new Chapter('#0B0B26', 2),
+   new Chapter('#0D0D30', 3)]);
 });
 
 

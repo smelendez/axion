@@ -6,7 +6,7 @@
   height: 550px;
   width: 550px;
   border: 10px solid black;
-  margin: -285px 0 0 -285px;
+  margin: -285px 0 0 -325px;
   background-image: url('../media/logo.png');
   background-size: cover;
   border-radius: 500px;
@@ -41,7 +41,7 @@
 #intro .fa-arrow-up, #intro .fa-arrow-down {
   position: absolute;
   top: 150px;
-  left: 450px;
+  left: 410px;
   width: 26px;
   height: 30px;
   background: #333;
