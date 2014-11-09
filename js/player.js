@@ -19,35 +19,57 @@ $(document).ready(function(){
   $('#player').attr('src', CLIPS.playNext());
   CLIPS.show();
 
-  PLAYER.on('timeupdate', function(){
+  var makeArc = function() {
     var ct = PLAYER.currentTime();
     var duration = PLAYER.duration();
+    
+    var arc_sel = g.select(".playerarc");
     if (!duration) {
-      // Don't generate the 'clock' until we know how long the clip is
+      arc_sel.remove();
       return;
     }
-
-    for (var i = 0; i < 12; i++){
-      if (ct >= (i / 12) * duration) {
-        svg.select('#playerdot-' + (i)).attr("fill","#31a354");
-      }
-      else {
-        svg.select('#playerdot-' + (i)).attr("fill","#666");
-
-      }
-
+    if (arc_sel.empty()) {
+      arc_sel = g.append("path").attr("class","playerarc").attr(
+          "d", d3.svg.arc().innerRadius(275).outerRadius(275).startAngle(0).endAngle(0.001));
     }
+    arc_sel.transition().ease('linear').duration((duration - ct) * 1000)
+      .attrTween("d", function() {
+         return function(t) {
+           var arcAngle = (ct + t * (duration-ct)) / duration * Math.PI * 2;
+           return d3.svg.arc().
+             innerRadius(275).outerRadius(275)
+             .startAngle(0).endAngle(arcAngle)();
+          };});
     
-    g.select(".arc").remove();
-    var arc = d3.svg.arc().
-    innerRadius(275).outerRadius(275)
-    .startAngle(0)
-    .endAngle((ct / duration) * Math.PI * 2);
-    g.append("path").attr("fill", "#31a354").attr("d",arc).attr("class","arc").attr("stroke", "#31a354"); // Green
+   for (var i = 0; i < 12; i++){
+      if (ct >= (i / 12) * duration) {
+        svg.select('#playerdot-' + (i)).attr("class", "playerdot playerdot-filled");
+      }
+      
+      else {
+        svg.select('#playerdot-' + (i)).attr("class", "playerdot");
+      }
+    }
+  }
 
-    
-
+  PLAYER.on('timeupdate', makeArc);
+  PLAYER.on('play', makeArc);
+  PLAYER.on('pause', function() {
+    var ct = PLAYER.currentTime();
+    var duration = PLAYER.duration();
+    var arc_sel = g.select(".playerarc");
+    arc_sel.transition().ease('linear').duration(100000)
+      .attrTween("d", function() {
+         return function(t) {
+           var arcAngle = (ct / duration * Math.PI * 2);
+           return d3.svg.arc().
+             innerRadius(275).outerRadius(275)
+             .startAngle(0).endAngle(arcAngle)();
+          };});
   });
+    
+    
+   
   $('#clock').on('click', function() {
    if (PLAYER.paused()) PLAYER.play(); else PLAYER.pause();
   });
