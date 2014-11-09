@@ -5,6 +5,27 @@ body {
   padding: 0;
   position: fixed;
 }
+.meterLabel {
+  text-transform: uppercase;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 10px;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+.topLabel {
+  top: -20px;
+  color: #fd0;
+  left: 8px;
+}
+.bottomLabel {
+  color: #fc0;
+  bottom: -25px;
+  left: 5px;
+
+}
 #viewport {
   background: #000;
   position: fixed;

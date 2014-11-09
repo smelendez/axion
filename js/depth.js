@@ -18,6 +18,16 @@ $(document).ready(function(){
       this.$dots.push($dot);
       this.$container.append($dot);
     }
+    $('#depthMeterContainer').prepend('<div class="meterLabel topLabel">Deeper</div>');
+    $('#depthMeterContainer').append('<div class="meterLabel bottomLabel">Broader</div>');
+    $('.bottomLabel').click(function(){
+      that.decrementDepth();
+    });
+    $('.topLabel').click(function(){
+      that.incrementDepth();
+
+    });
+
     $('.depthMeterDot').on('click',function(){
       var $this = $(this);
       var index = $this.attr('id').split('-')[1];
