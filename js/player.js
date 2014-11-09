@@ -3,8 +3,19 @@ $(document).ready(function(){
   window.CANCEL = false;
   var svg = d3.select("svg#clock");
   var g = svg.select("g");
+  var durationSet = false;
+  var cueEvent = false;
+  PLAYER.cue(2, function(){
+    $('#player-titles').hide();
+
+  });
   PLAYER.on('play', function() {
     CANCEL = true;
+    durationSet = false;
+    $('#player').animate({opacity: 1}, 1000);
+    CLIPS.showTitles();
+
+
   });
   PLAYER.on('ended', function() {
     CANCEL = false;
@@ -32,6 +43,29 @@ $(document).ready(function(){
       arc_sel.remove();
       return;
     }
+    if (!durationSet){
+      durationSet = true;
+      if (cueEvent) {;
+        PLAYER.removeTrackEvent(cueEvent);
+        cueEvent = null;
+
+      }
+      PLAYER.cue(duration - 1, function(){
+        $('#player').animate({opacity: 0},1000);
+
+      });
+      cueEvent = PLAYER.getLastTrackEventId();
+
+    }
+
+    if (ct >= 2) {
+      $('#player-titles').hide();
+    }
+    else {
+      CLIPS.showTitles();
+
+    }
+
     if (arc_sel.empty()) {
       arc_sel = g.append("path").attr("class","playerarc");
     }

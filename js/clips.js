@@ -232,10 +232,18 @@ function Clips(vid_list, chapter_list) {
     ++depth_order;
   }
 }
+Clips.prototype.showTitles = function(){
+  $('#playing-title').text(this.context.title);
+  $('#playing-speakername').text(this.context.speakername);
+  $('#player-titles').show();
+
+}
 Clips.prototype.play = function(playing) {
   var clips = this;
   this.context.seq = playing.seq;
   this.context.video_depth = playing.depth;
+  this.context.title = playing.title;
+  this.context.speakername = playing.speakername;
   var lowest = 0;
   var seq = 0;
   this.videos.forEach(function(video) {
