@@ -75,6 +75,8 @@ function Clip(screenshot, media, seq, depth, title) {
 }
 Clip.prototype.setPos = function(ctx, lowest, opt_noAnimate) {
   // TODO: actual animation w/ circular paths around main video
+  var oldLeft = parseFloat(this.dom.css('left')),
+      oldTop = parseFloat(this.dom.css('top'));
   if (this.playing) {
     var clip = this;
     this.dom.css({
@@ -85,16 +87,15 @@ Clip.prototype.setPos = function(ctx, lowest, opt_noAnimate) {
     if (opt_noAnimate) {
       this.dom.css({'top': 85, 'left': 365});
     } else {
-      this.dom.css({
-       'top': 85,
-       'left': 365});
+      this.ca = animateLinear(
+        this.dom,
+        oldLeft, oldTop,
+        365, 85,
+        3000, this.ca); 
     }
     return -1;
   }
   this.dom.css('opacity', '1');
-
-  var oldLeft = parseFloat(this.dom.css('left')),
-      oldTop = parseFloat(this.dom.css('top'));
   var newTop, newLeft, newWidth, newHeight;
   if (this.seq == ctx.seq) {
     newTop = (this.depth < ctx.video_depth) ? 0 : 645;
