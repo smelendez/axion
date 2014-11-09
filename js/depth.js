@@ -21,8 +21,8 @@ $(document).ready(function(){
       this.$dots.push($dot);
       this.$container.append($dot);
     }
-    $('#depthMeterContainer').prepend('<div class="meterLabel topLabel">Broader</div>');
-    $('#depthMeterContainer').append('<div class="meterLabel bottomLabel">Deeper</div>');
+    $('#depthMeterContainer').prepend('<div class="meterLabel topLabel">Bigger Picture</div>');
+    $('#depthMeterContainer').append('<div class="meterLabel bottomLabel">More Details</div>');
     $('.bottomLabel').click(function(){
       that.decrementDepth();
     });
