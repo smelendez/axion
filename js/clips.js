@@ -133,7 +133,7 @@ Clip.prototype.setPos = function(ctx, lowest, opt_noAnimate) {
     'width': newWidth,
     'height': newHeight,
     'margin-top': -.18 * newHeight,
-    'font-size': .36 * 85
+    'font-size': .36 * newWidth
   });
   if (opt_noAnimate) {
     this.dom.css({'top': newTop, 'left': newLeft});
