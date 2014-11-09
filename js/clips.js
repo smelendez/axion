@@ -358,15 +358,15 @@ $(document).ready(function(){
    new Chapter('#101035', 'Conclusion', 4)];
   window.CLIPS = new Clips([
     new Clip({screenshot: 'media/intro.png', media:  'media/intro.mp4', seq: 0, depth: 0.5, speakername: 'Horatio Darkmatter', title: 'Physics is Poetry'}),
-    new Clip({screenshot: 'media/01a.png', media:  'media/01a.mp4', seq: 1, depth: 0.1, speakername: 'Horatio Darkmatter', title: 'What is Dark Matter?'}),
-    new Clip({screenshot: 'media/01b.png', media:  'media/01b.mp4', seq: 1, depth: 0.4, speakername: 'Horatio Darkmatter', title: 'What is Dark Matter?'}),
-    new Clip({screenshot: 'media/01c.png', media:  'media/01c.mp4', seq: 1, depth: 0.7, speakername: 'Horatio Darkmatter', title: 'The Missing Mass'}),
-    new Clip({screenshot: 'media/02a.png', media:  'media/02a.mp4', seq: 2, depth: 0.2, speakername: 'Horatio Darkmatter', title: 'Physics and Poetry'}),
-    new Clip({screenshot: 'media/02b.png', media:  'media/02b.mp4', seq: 2, depth: 0.4, speakername: 'Horatio Darkmatter', title: 'Looking in the Dark'}),
-    new Clip({screenshot: 'media/02c.png', media:  'media/02c.mp4', seq: 2, depth: 0.7, speakername: 'Horatio Darkmatter', title: '95% Unknown'}),
-    new Clip({screenshot: 'media/03a.png', media:  'media/03a.mp4', seq: 3, depth: 0.2, speakername: 'Horatio Darkmatter', title: 'No Time to Lose'}),
-    new Clip({screenshot: 'media/03b.png', media:  'media/03b.mp4', seq: 3, depth: 0.4, speakername: 'Horatio Darkmatter', title: 'Multiverses'}),
-    new Clip({screenshot: 'media/03c.png', media:  'media/03c.mp4', seq: 3, depth: 0.7, speakername: 'Horatio Darkmatter', title: 'Many Worlds'}),
+    new Clip({screenshot: 'media/01a.png', media:  'media/01a.mp4', seq: 1, depth: 0.1, speakername: 'Sean Carroll', title: 'What is Dark Matter?'}),
+    new Clip({screenshot: 'media/01b.png', media:  'media/01b.mp4', seq: 1, depth: 0.4, speakername: 'Sean Carroll', title: 'What is Dark Matter?'}),
+    new Clip({screenshot: 'media/01c.png', media:  'media/01c.mp4', seq: 1, depth: 0.7, speakername: 'Sean Carroll', title: 'The Missing Mass'}),
+    new Clip({screenshot: 'media/02a.png', media:  'media/02a.mp4', seq: 2, depth: 0.2, speakername: 'Mark Wyman', title: 'Physics and Poetry'}),
+    new Clip({screenshot: 'media/02b.png', media:  'media/02b.mp4', seq: 2, depth: 0.4, speakername: 'Elena Aprile', title: 'Looking in the Dark'}),
+    new Clip({screenshot: 'media/02c.png', media:  'media/02c.mp4', seq: 2, depth: 0.7, speakername: 'Elena Aprile & Martin Pohl', title: '95% Unknown'}),
+    new Clip({screenshot: 'media/03a.png', media:  'media/03a.mp4', seq: 3, depth: 0.2, speakername: 'Martin Pohl & Elena Aprile', title: 'No Time to Lose'}),
+    new Clip({screenshot: 'media/03b.png', media:  'media/03b.mp4', seq: 3, depth: 0.4, speakername: 'Sean Carroll & Elena Aprile', title: 'Multiverses'}),
+    new Clip({screenshot: 'media/03c.png', media:  'media/03c.mp4', seq: 3, depth: 0.7, speakername: 'Sean Carroll & Elena Aprile', title: 'Many Worlds'}),
     new Clip({screenshot: 'media/conclusion.png', media:  'media/conclusion.mp4', seq: 4, depth: 0.5, speakername: 'Horatio Darkmatter', title: 'Physics is Poetry'}),
   ], CHAPTERS);
 });
