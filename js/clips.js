@@ -288,7 +288,7 @@ Clips.prototype.setCurDepth = function(cur_depth) {
     lowest = video.setPos(clips.context, lowest);
   });
 
-  if (playingDiff - bestDiff > 0.1) {
+  if (!INTRO && playingDiff - bestDiff > 0.1) {
     this.play(bestVid);
     $('#player').attr('src', bestVid.media);
     PLAYER.play();
