@@ -1,3 +1,76 @@
+/*
+function animate(obj, from_x, from_y, to_x, to_y, duration) {
+  var start = new Date().getTime();
+  var intv = setInterval(function() {
+    var cur = new Date().getTime();
+    var incr = (cur - start) / parseFloat(duration);
+    if (incr >= 1) {
+      obj.css({'top': to_y, 'left': to_x});
+      clearInterval(intv);
+    }
+    var pos_x = (
+     (1-incr) * from_x + incr * to_x);
+    var pos_y = (
+     (1-incr)  * from_y + incr * to_y);
+    
+    var r = Math.sqrt(
+      (pos_x - 610)*(pos_x - 610) +
+      (pos_y - 340)*(pos_y - 340));
+    if (r < 300) {
+      var angle = Math.atan(
+        (pos_y - 340)/(pos_x - 610));
+      if (pos_x < 610) angle += Math.PI;
+      pos_x = 610 + 300 * Math.cos(angle);
+      pos_y = 340 + 300 * Math.sin(angle);
+    }
+    obj.css({
+      'top': pos_y,
+      'left': pos_x
+    });
+   }, 10);
+}
+*/
+
+function animate(obj, from_x, from_y, to_x, to_y, duration) {
+  from_x -= 610;
+  from_y -= 345;
+  to_x -= 610;
+  to_y -= 345;
+
+  var Y_AXIS = 300;
+  if (Math.abs(from_y) >= Y_AXIS) Y_AXIS = Math.abs(from_y) + 1;
+  if (Math.abs(to_y) >= Y_AXIS) Y_AXIS = Math.abs(to_y) + 1;
+
+  var ellipse_a1 = Math.sqrt(
+    from_x * from_x / (1 - (from_y * from_y / Y_AXIS / Y_AXIS)));
+  var ellipse_a2 = Math.sqrt(
+    to_x * to_x / (1 - (to_y * to_y / Y_AXIS / Y_AXIS)));
+
+  console.log(from_x, from_y, to_x, to_y, ellipse_a1, ellipse_a2);
+   
+  var easer = d3.ease('cubic-in-out');
+  var start = new Date().getTime();
+  var intv = setInterval(function() {
+    var cur = new Date().getTime();
+    var incr = easer((cur - start) / parseFloat(duration));
+    if (incr >= 1) {
+      obj.css({'top': to_y + 345, 'left': to_x + 610});
+      clearInterval(intv);
+    }
+    var pos_x = (
+     (1-incr) * from_x + incr * to_x);
+    var ellipse_a = (
+     (1-incr) * ellipse_a1 + incr * ellipse_a2);
+    var pos_y = Math.sqrt(
+      Y_AXIS * Y_AXIS * (1 - (pos_x * pos_x / ellipse_a / ellipse_a)));
+    if (to_y < 0) pos_y = -pos_y;
+    obj.css({
+      'top': pos_y + 345,
+      'left': pos_x + 610
+    });
+   }, 10);
+}
+
 function Clip(screenshot, media, seq, depth, title) {
   if (typeof screenshot == 'object') {
     media = screenshot.media;
@@ -37,7 +110,8 @@ Clip.prototype.setPos = function(ctx, lowest, opt_noAnimate) {
   }
   this.dom.css('opacity', '1');
 
-  oldTop = this.dom.css('top');
+  var oldLeft = parseFloat(this.dom.css('left')),
+      oldTop = parseFloat(this.dom.css('top'));
   var newTop, newLeft, newWidth, newHeight;
   if (this.seq == ctx.seq) {
     newTop = (this.depth < ctx.video_depth) ? 0 : 645;
@@ -80,11 +154,9 @@ Clip.prototype.setPos = function(ctx, lowest, opt_noAnimate) {
   if (opt_noAnimate) {
     this.dom.css({'top': newTop, 'left': newLeft});
   } else {
-    this.dom.css({
-      'top': newTop,
-      'left': newLeft});
- }
- return newTop + newHeight - (.18 * newHeight);
+    animate(this.dom, oldLeft, oldTop, newLeft, newTop, 3000);
+  }
+  return newTop + newHeight - (.18 * newHeight);
 }
 Clip.prototype.setPlaying = function(playing) {
   this.playing = playing;
