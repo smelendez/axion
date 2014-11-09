@@ -30,7 +30,7 @@ Clip.prototype.setPos = function(ctx) {
         .css('margin-top', -(.18 * 85) + 'px')
         .css('font-size', (.36 * 85) + 'px');
   } else {
-    var depthFactor = 1 / (0.8 + Math.abs(this.depth - ctx.depth));
+    var depthFactor = 1.2 - (1/(1 + Math.exp(4 - 8 * Math.abs(this.depth - ctx.depth))));
     var seqFactor = 1 / Math.pow(Math.abs(this.seq - ctx.seq), 0.5);
     var sizeFactor = depthFactor * seqFactor;
 
@@ -45,9 +45,9 @@ Clip.prototype.setPos = function(ctx) {
       left = 0;
     }
 
-    var vertRange = 720 / Math.pow(Math.abs(this.seq - ctx.seq), 0.5);
+    var vertRange = 720 / Math.pow(Math.abs(this.seq - ctx.seq), 0.7);
 
-    var vertNoise = Math.random() * 40 - 20;
+    var vertNoise = Math.random() * 20 - 10;
     this.dom
         .css('left', left + 'px')
         .css('top', vertNoise - (25 * sizeFactor) + 360 +
@@ -55,8 +55,8 @@ Clip.prototype.setPos = function(ctx) {
 		    'px')
         .css('width', 50 * sizeFactor + 'px')
         .css('height', 50 * sizeFactor + 'px')
-        .css('margin-top', -9 * sizeFactor + 'px')
-        .css('font-size', 18 * sizeFactor + 'px');
+        .css('margin-top', -9 * .8 * sizeFactor + 'px')
+        .css('font-size', 18 * .8 * sizeFactor + 'px');
   }
 }
 Clip.prototype.setPlaying = function(playing) {
@@ -138,6 +138,8 @@ Clips.prototype.playNext = function() {
   if (best_clip) {
     this.play(best_clip);
     return best_clip.media;
+  } else {
+    return null;
   }
 }
 
@@ -146,14 +148,19 @@ $(document).ready(function(){
     new Clip('media/star_head.png', 'media/1-07.mp4', 0, 0.2),
     new Clip('media/star_head.png', 'media/1-08.mp4', 0, 0.5),
     new Clip('media/star_head_2.png', 'media/1-09.mp4', 0, 0.7),
-    new Clip('media/star_head_2.png', 'media/video_1.mp4', 1, 0.75),
-    new Clip('media/star_head.png', 'media/video_1.mp4', 2, 0.9),
-    new Clip('media/star_head.png', 'media/video_1.mp4', 3, 0.5)
+    new Clip('media/star_head.png', 'media/2-01.mp4', 1, 0.1),
+    new Clip('media/star_head.png', 'media/2-03.mp4', 1, 0.2),
+    new Clip('media/star_head_2.png', 'media/2-04.mp4', 1, 0.6),
+    new Clip('media/star_head_2.png', 'media/2-05.mp4', 1, 0.9),
+    new Clip('media/star_head_2.png', 'media/3-01.mp4', 2, 0.4),
+    new Clip('media/star_head_2.png', 'media/3-05.mp4', 2, 0.8),
+    new Clip('media/star_head.png', 'media/4-01.mp4', 3, 0.1),
+    new Clip('media/star_head.png', 'media/4-02.mp4', 3, 0.3),
+    new Clip('media/star_head.png', 'media/4-04.mp4', 3, 0.5),
+    new Clip('media/star_head.png', 'media/4-05.mp4', 3, 0.7),
+    new Clip('media/star_head.png', 'media/4-06.mp4', 3, 0.9),
   ]);
   window.CLIPS.show();
-  $('video').on('click', function(){
-    if (PLAYER.paused()) PLAYER.play(); else PLAYER.pause();
-  });
 });
 
 

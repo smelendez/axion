@@ -10,7 +10,9 @@ $(document).ready(function(){
     CANCEL = false;
     setTimeout(function() {
         if (CANCEL) return;
+        var oldSource = $('#player').attr('src');
 	var nextMedia = CLIPS.playNext();
+        if (!nextMedia) return;
 	$('#player').attr('src', nextMedia);
 	PLAYER.play(); }, 1000);
   });
@@ -40,10 +42,15 @@ $(document).ready(function(){
     
 
   });
+  $('#clock').on('click', function() {
+   if (PLAYER.paused()) PLAYER.play(); else PLAYER.pause();
+  });
   svg.selectAll(".playerdot").on("click", function(){
     var id = this.id;
     var position = id.split("-")[1];
     PLAYER.currentTime(+(position / 12) * PLAYER.duration());
+    d3.event.stopPropagation();
+    d3.event.preventDefault();
 
   });
 
