@@ -1,6 +1,8 @@
 $(document).ready(function(){
   window.PLAYER = Popcorn('#player');
   window.CANCEL = false;
+  var svg = d3.select("svg#clock");
+  var g = svg.append("g").attr('transform', "translate(285, 285)");
   PLAYER.on('play', function() {
     CANCEL = true;
   });
@@ -19,13 +21,30 @@ $(document).ready(function(){
 
     for (var i = 0; i < 12; i++){
       if (ct >= (i / 12) * duration) {
-        $('#playerdot-' + (i)).addClass('filled');
+        svg.select('#playerdot-' + (i)).attr("fill","#31a354");
       }
       else {
-        $('#playerdot-' + (i)).removeClass('filled');
+        svg.select('#playerdot-' + (i)).attr("fill","#fa9fb5");
+
       }
 
     }
+    
+    g.select(".arc").remove();
+    var arc = d3.svg.arc().
+    innerRadius(274).outerRadius(275)
+    .startAngle(0)
+    .endAngle((ct / duration) * Math.PI * 2);
+    g.append("path").attr("fill", "#31a354").attr("d",arc).attr("class","arc").attr("stroke", "#31a354"); // Green
+
+    
 
   });
+  svg.selectAll(".playerdot").on("click", function(){
+    var id = this.id;
+    var position = id.split("-")[1];
+    PLAYER.currentTime(+(position / 12) * PLAYER.duration());
+
+  });
+
 });
