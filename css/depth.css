@@ -3,8 +3,8 @@
 
   position: absolute;
   background-color: black;
-  width: 40px;
-  right: 65px;
+  width: 60px;
+  right: 45px;
   top: 450px;
   margin-top: -200px;
   height: 250px;
@@ -19,9 +19,24 @@
   background-color: #fd0;
 
 }
-
-body {
+.meterLabel {
+  text-transform: uppercase;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 10px;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+.topLabel {
+  top: -20px;
+  color: #fd0;
+  left: 0;
+}
+.bottomLabel {
+  color: #fc0;
+  bottom: -25px;
+  left: 0;
 
 }
-
-
