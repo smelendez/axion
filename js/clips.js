@@ -30,7 +30,7 @@ Clip.prototype.setPos = function(ctx) {
         .css('margin-top', -(.18 * 85) + 'px')
         .css('font-size', (.36 * 85) + 'px');
   } else {
-    var depthFactor = 1 / (0.8 + Math.abs(this.depth - ctx.depth));
+    var depthFactor = 1.2 - (1/(1 + Math.exp(4 - 8 * Math.abs(this.depth - ctx.depth))));
     var seqFactor = 1 / Math.pow(Math.abs(this.seq - ctx.seq), 0.5);
     var sizeFactor = depthFactor * seqFactor;
 
@@ -45,7 +45,7 @@ Clip.prototype.setPos = function(ctx) {
       left = 0;
     }
 
-    var vertRange = 720 / Math.pow(Math.abs(this.seq - ctx.seq), 0.5);
+    var vertRange = 720 / Math.pow(Math.abs(this.seq - ctx.seq), 0.7);
 
     var vertNoise = Math.random() * 20 - 10;
     this.dom
@@ -55,8 +55,8 @@ Clip.prototype.setPos = function(ctx) {
 		    'px')
         .css('width', 50 * sizeFactor + 'px')
         .css('height', 50 * sizeFactor + 'px')
-        .css('margin-top', -9 * sizeFactor + 'px')
-        .css('font-size', 18 * sizeFactor + 'px');
+        .css('margin-top', -9 * .8 * sizeFactor + 'px')
+        .css('font-size', 18 * .8 * sizeFactor + 'px');
   }
 }
 Clip.prototype.setPlaying = function(playing) {
