@@ -2,7 +2,7 @@ $(document).ready(function(){
   window.PLAYER = Popcorn('#player');
   window.CANCEL = false;
   var svg = d3.select("svg#clock");
-  var g = svg.append("g").attr('transform', "translate(285, 285)");
+  var g = svg.select("g");
   PLAYER.on('play', function() {
     CANCEL = true;
   });
