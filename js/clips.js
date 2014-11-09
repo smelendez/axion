@@ -270,13 +270,36 @@ Clips.prototype.setCurDepth = function(cur_depth) {
   this.context.depth = cur_depth;
   var lowest = 0;
   var seq = 0;
+
+  var playingVid = null;
+  var playingDiff = 2;
+  var bestVid = null;
+  var bestDiff = 2;
+
   this.videos.forEach(function(video) {
+    if (video.playing) {
+      playingVid = video;
+      playingDiff = Math.abs(video.depth - clips.context.depth);
+    }
+    if (video.seq == clips.context.seq) {
+      var diff = Math.abs(video.depth - clips.context.depth);
+      if (diff < bestDiff) {
+        bestDiff = diff;
+        bestVid = video;
+      }
+    }
     if (video.seq != seq) {
       lowest = 0;
       seq = video.seq;
     }
     lowest = video.setPos(clips.context, lowest);
   });
+
+  if (playingDiff - bestDiff > 0.1) {
+    this.play(bestVid);
+    $('#player').attr('src', bestVid.media);
+    PLAYER.play();
+  }
 }
 Clips.prototype.show = function()  {
   var clips = this;
