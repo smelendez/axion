@@ -5,14 +5,27 @@ $(document).ready(function(){
   var g = svg.select("g");
   var durationSet = false;
   var cueEvent = false;
-  PLAYER.cue(2, function(){
+  var titleTime = 3;
+  PLAYER.cue(titleTime, function(){
     $('#player-titles').hide();
 
   });
+  PLAYER._play = function(){
+    // Stop any ongoing fades
+    $('#player').stop();
+
+    $('#player').css('opacity', 0);
+    PLAYER.play();
+    // Make sure event gets triggered
+    PLAYER.trigger('play');
+  }
+  
   PLAYER.on('play', function() {
     CANCEL = true;
     durationSet = false;
-    $('#player').animate({opacity: 1}, 1000);
+      $('#player').animate({'opacity': 1}, titleTime * 1000, 'swing', function(){
+      
+      });
     CLIPS.showTitles();
 
 
@@ -25,7 +38,8 @@ $(document).ready(function(){
 	var nextMedia = CLIPS.playNext();
         if (!nextMedia) return;
 	$('#player').attr('src', nextMedia);
-	PLAYER.play(); }, 1000);
+        $('#player').css('opacity', 0);
+	PLAYER._play(); }, 1000);
   });
   $('#player').attr('src', CLIPS.playNext());
   CLIPS.show();
@@ -59,7 +73,7 @@ $(document).ready(function(){
 
     }
 
-    if (ct >= 2) {
+    if (ct >= titleTime) {
       $('#player-titles').hide();
     }
     else {

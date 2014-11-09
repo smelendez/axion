@@ -92,7 +92,8 @@ function Chapter(color, seq) {
     clearIntro();
     var media = CLIPS.playNext(seq);
     $('#player').attr('src', media);
-    PLAYER.play();
+    
+    PLAYER._play();
   });
   this.dom.appendTo($('#viewport'));
   this.seq = seq;
@@ -227,7 +228,7 @@ Clip.prototype.show = function(ctx, lowest) {
     clearIntro();
     CLIPS.play(that);
     $('#player').attr('src', that.media);
-    PLAYER.play();
+    PLAYER._play();
   });
   return newLowest;
 }
@@ -308,7 +309,7 @@ Clips.prototype.setCurDepth = function(cur_depth) {
   if (playingDiff - bestDiff > 0.1) {
     this.play(bestVid);
     $('#player').attr('src', bestVid.media);
-    PLAYER.play();
+    PLAYER._play();
   }
 }
 Clips.prototype.show = function()  {
