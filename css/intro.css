@@ -5,9 +5,11 @@
   left: 50%;
   height: 550px;
   width: 550px;
-  margin: -275px 0 0 -275px;
+  border: 10px solid black;
+  margin: -285px 0 0 -285px;
   background-image: url('../media/logo.png');
   background-size: cover;
+  z-index: 20;
 }
 #intro div {
   opacity: 0;
@@ -35,27 +37,25 @@
 #stage3 {
   margin-top: -450px;
 }
-#stage4 {
-}
-#intro-uparrowkey {
+#intro .fa-arrow-up, #intro .fa-arrow-down {
   position: absolute;
   top: 150px;
   left: 450px;
-  width: 50px;
-  height: 50px;
-  fill: #333;
-  stroke: #888;
+  width: 26px;
+  height: 30px;
+  background: #333;
+  color: #888;
   z-index: 1000;
+  font-size: 30px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #888;
 }
-#intro-downarrowkey {
-  position: absolute;
+#intro .fa-arrow-up {
+  top: 150px;
+}
+#intro .fa-arrow-down {
   top: 300px;
-  left: 450px;
-  width: 50px;
-  height: 50px;
-  fill: #333;
-  stroke: #888;
-  z-index: 1000;
 }
 #intro-spacebarkey {
   display: none;
