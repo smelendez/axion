@@ -1,37 +1,5 @@
-/*
-function animate(obj, from_x, from_y, to_x, to_y, duration) {
-  var start = new Date().getTime();
-  var intv = setInterval(function() {
-    var cur = new Date().getTime();
-    var incr = (cur - start) / parseFloat(duration);
-    if (incr >= 1) {
-      obj.css({'top': to_y, 'left': to_x});
-      clearInterval(intv);
-    }
-    var pos_x = (
-     (1-incr) * from_x + incr * to_x);
-    var pos_y = (
-     (1-incr)  * from_y + incr * to_y);
-    
-    var r = Math.sqrt(
-      (pos_x - 610)*(pos_x - 610) +
-      (pos_y - 340)*(pos_y - 340));
-    if (r < 300) {
-      var angle = Math.atan(
-        (pos_y - 340)/(pos_x - 610));
-      if (pos_x < 610) angle += Math.PI;
-      pos_x = 610 + 300 * Math.cos(angle);
-      pos_y = 340 + 300 * Math.sin(angle);
-    }
-    obj.css({
-      'top': pos_y,
-      'left': pos_x
-    });
-   }, 10);
-}
-*/
-
-function animate(obj, from_x, from_y, to_x, to_y, duration) {
+function animate(obj, from_x, from_y, to_x, to_y, duration, opt_ca) {
+  if (opt_ca) clearInterval(opt_ca);
   from_x -= 610;
   from_y -= 345;
   to_x -= 610;
@@ -46,8 +14,6 @@ function animate(obj, from_x, from_y, to_x, to_y, duration) {
   var ellipse_a2 = Math.sqrt(
     to_x * to_x / (1 - (to_y * to_y / Y_AXIS / Y_AXIS)));
 
-  console.log(from_x, from_y, to_x, to_y, ellipse_a1, ellipse_a2);
-   
   var easer = d3.ease('cubic-in-out');
   var start = new Date().getTime();
   var intv = setInterval(function() {
@@ -56,6 +22,7 @@ function animate(obj, from_x, from_y, to_x, to_y, duration) {
     if (incr >= 1) {
       obj.css({'top': to_y + 345, 'left': to_x + 610});
       clearInterval(intv);
+      return;
     }
     var pos_x = (
      (1-incr) * from_x + incr * to_x);
@@ -68,6 +35,22 @@ function animate(obj, from_x, from_y, to_x, to_y, duration) {
       'top': pos_y + 345,
       'left': pos_x + 610
     });
+   }, 10);
+   return intv;
+}
+function animateLinear(obj, from_x, from_y, to_x, to_y, duration) {
+  var easer = d3.ease('cubic-in-out');
+  var start = new Date().getTime();
+  var intv = setInterval(function() {
+    var cur = new Date().getTime();
+    var incr = easer((cur - start) / parseFloat(duration));
+    if (incr >= 1) {
+      obj.css({'top': to_y, 'left': to_x});
+      clearInterval(intv);
+      return;
+    }
+    obj.css({'top': ((1-incr) * from_y + incr * to_y),
+             'left': ((1-incr) * from_x + incr * to_x)});
    }, 10);
 }
 
@@ -154,7 +137,11 @@ Clip.prototype.setPos = function(ctx, lowest, opt_noAnimate) {
   if (opt_noAnimate) {
     this.dom.css({'top': newTop, 'left': newLeft});
   } else {
-    animate(this.dom, oldLeft, oldTop, newLeft, newTop, 3000);
+    if (Math.abs(oldLeft - newLeft) < 10) {
+      this.ca = animateLinear(this.dom, oldLeft, oldTop, newLeft, newTop, 3000, this.ca);
+    } else {
+      this.ca = animate(this.dom, oldLeft, oldTop, newLeft, newTop, 3000, this.ca);
+    }
   }
   return newTop + newHeight - (.18 * newHeight);
 }
