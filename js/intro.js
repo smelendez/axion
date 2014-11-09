@@ -1,4 +1,5 @@
 window.INTRO = true;
+window.INTRO_CUES = [];
 
 function clickUp() {
   $('#intro .fa-arrow-up').css('background', '#666');
@@ -17,17 +18,17 @@ function clickDown() {
 
 function stage1() {
   $('#stage1').css('opacity', '1');
-  setTimeout(stage2, 5000);
+  INTRO_CUES.push(setTimeout(stage2, 5000));
   // Welcome to Axion
 }
 function stage2() {
   $('#stage1').css('opacity', '0');
   $('#stage2').css('opacity', '1');
-  setTimeout(clickUp, 5000);
-  setTimeout(clickUp, 7000);
-  setTimeout(clickDown, 9000);
-  setTimeout(clickDown, 11000);
-  setTimeout(stage3, 15000);
+  INTRO_CUES.push(setTimeout(clickUp, 5000));
+  INTRO_CUES.push(setTimeout(clickUp, 7000));
+  INTRO_CUES.push(setTimeout(clickDown, 9000));
+  INTRO_CUES.push(setTimeout(clickDown, 11000));
+  INTRO_CUES.push(setTimeout(stage3, 15000));
   // Use your up and down arrow keys to adjust the depth
 }
 function stage3() {

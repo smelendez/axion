@@ -9,6 +9,7 @@
   margin: -285px 0 0 -285px;
   background-image: url('../media/logo.png');
   background-size: cover;
+  border-radius: 500px;
   z-index: 20;
 }
 #intro div {

@@ -40,10 +40,11 @@ Clip.prototype.setPos = function(ctx, opt_noAnimate) {
   oldTop = this.dom.css('top');
   var newTop, newLeft, newWidth, newHeight;
   if (this.seq == ctx.seq) {
-    newTop = (this.depth < ctx.video_depth) ? 0 : 635;
+    newTop = (this.depth < ctx.video_depth) ? 0 : 645;
     newLeft =  400 + (100 * this.depth_order);
-    newWidth = 85;
-    newHeight = 85;
+    if (newLeft >= 600) newLeft += 140;
+    newWidth = 75;
+    newHeight = 75;
   } else {
     var depthFactor = 1.2 - (1/(1 + Math.exp(4 - 8 * Math.abs(this.depth - ctx.depth))));
     var seqFactor = 1 / Math.pow(Math.abs(this.seq - ctx.seq), 0.5);
