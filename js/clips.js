@@ -87,7 +87,12 @@ function getChapterLeft(seq_diff) {
 function Chapter(color, seq) {
   this.dom = $('<div class="chapter"/>')
      .css('background-color', color);
-  this.dom.append('<span>' + (seq+1) + '</span>');
+  var number = this.dom.append('<span>' + (seq+1) + '</span>');
+  number.on('click', function() {
+    var media = CLIPS.playNext(seq);
+    $('#player').attr('src', bestVid.media);
+    PLAYER.play();
+  });
   this.dom.appendTo($('#viewport'));
   this.seq = seq;
 }
@@ -312,9 +317,12 @@ Clips.prototype.show = function()  {
     chapter.setPos(clips.context, true); 
   });
 }
-Clips.prototype.playNext = function() {
+Clips.prototype.playNext = function(opt_new_seq) {
   var clips = this;
   var new_seq = this.context.seq + 1;
+  if (opt_new_seq !== undefined) {
+    new_seq = opt_new_seq;
+  }
   var best_diff = 2;
   var best_clip = null;
   this.videos.forEach(function(video) {

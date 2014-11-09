@@ -1,18 +1,8 @@
 - Write out some presentation notes
 - Jason: put together a Keynote preso with Axion shots incl. EEG
-- Finish progress indicator
-- Lots of fit & finish
-- Figure out look & feel, finalize layout
 - Collect clips
 - Build images from finalized clips
 - Filter & transcode
 - Titles for clips
-- Intro screen with how-to
-- Switch videos for same chapter in midstream
-
-- Chapters grouped together 
-- Keyboard left/right goes rw/ffwd
 - Replace up/down icons in intro with keycaps
-- Group parallel videos in some way w/ current
-- Replace depth dots with bars
 
