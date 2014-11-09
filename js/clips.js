@@ -1,8 +1,9 @@
-function Clip(screenshot, media, seq, depth) {
+function Clip(screenshot, media, seq, depth, title) {
   if (typeof screenshot == 'object') {
     media = screenshot.media;
     seq = screenshot.seq;
     depth = screenshot.depth;
+    title = screenshot.title;
     screenshot = screenshot.screenshot;
   }
 
@@ -14,6 +15,7 @@ function Clip(screenshot, media, seq, depth) {
   this.media = media;
   this.depth = depth;
   this.seq = seq;
+  this.title = title;
 }
 Clip.prototype.setPos = function(ctx) {
   // TODO: actual animation w/ circular paths around main video
@@ -71,7 +73,7 @@ Clip.prototype.setPlaying = function(playing) {
   this.playing = playing;
 }
 Clip.prototype.preview = function(){
-    return '<img width="200px" height="200px" id="preview_screenshot" src="' + this.screenshot + '" /> <div id="preview_title">Dr. Horatio Darkmatter:<br /> "I believe in science"</div>'
+    return '<img width="200px" height="200px" id="preview_screenshot" src="' + this.screenshot + '" /> <div id="preview_title">' + this.title + '</div>'
 
 }
 Clip.prototype.show = function(ctx) {
@@ -153,20 +155,20 @@ Clips.prototype.playNext = function() {
 
 $(document).ready(function(){
   window.CLIPS = new Clips([
-    new Clip({screenshot: 'media/star_head.png', media:  'media/1-07.mp4', seq: 0, depth: 0.2}),
-    new Clip({screenshot: 'media/star_head.png', media:  'media/1-08.mp4', seq: 0, depth: 0.5}),
-    new Clip({screenshot: 'media/star_head_2.png', media:  'media/1-09.mp4', seq: 0, depth: 0.7}),
-    new Clip({screenshot: 'media/star_head.png', media:  'media/2-01.mp4', seq: 1, depth: 0.1}),
-    new Clip({screenshot: 'media/star_head.png', media:  'media/2-03.mp4', seq: 1, depth: 0.2}),
-    new Clip({screenshot: 'media/star_head_2.png', media:  'media/2-04.mp4', seq: 1, depth: 0.6}),
-    new Clip({screenshot: 'media/star_head_2.png', media:  'media/2-05.mp4', seq: 1, depth: 0.9}),
-    new Clip({screenshot: 'media/star_head_2.png', media:  'media/3-01.mp4', seq: 2, depth: 0.4}),
-    new Clip({screenshot: 'media/star_head_2.png', media:  'media/3-05.mp4', seq: 2, depth: 0.8}),
-    new Clip({screenshot: 'media/star_head.png', media:  'media/4-01.mp4', seq: 3, depth: 0.1}),
-    new Clip({screenshot: 'media/star_head.png', media:  'media/4-02.mp4', seq: 3, depth: 0.3}),
-    new Clip({screenshot: 'media/star_head.png', media:  'media/4-04.mp4', seq: 3, depth: 0.5}),
-    new Clip({screenshot: 'media/star_head.png', media:  'media/4-05.mp4', seq: 3, depth: 0.7}),
-    new Clip({screenshot: 'media/star_head.png', media:  'media/4-06.mp4', seq: 3, depth: 0.9}),
+    new Clip({screenshot: 'media/star_head.png', media:  'media/1-07.mp4', seq: 0, depth: 0.2, title: 'Physics is Poetry'}),
+    new Clip({screenshot: 'media/star_head.png', media:  'media/1-08.mp4', seq: 0, depth: 0.5, title: 'Physics is Poetry'}),
+    new Clip({screenshot: 'media/star_head_2.png', media:  'media/1-09.mp4', seq: 0, depth: 0.7, title: 'Physics is Poetry'}),
+    new Clip({screenshot: 'media/star_head.png', media:  'media/2-01.mp4', seq: 1, depth: 0.1, title: 'Physics is Poetry'}),
+    new Clip({screenshot: 'media/star_head.png', media:  'media/2-03.mp4', seq: 1, depth: 0.2, title: 'Physics is Poetry'}),
+    new Clip({screenshot: 'media/star_head_2.png', media:  'media/2-04.mp4', seq: 1, depth: 0.6, title: 'Physics is Poetry'}),
+    new Clip({screenshot: 'media/star_head_2.png', media:  'media/2-05.mp4', seq: 1, depth: 0.9, title: 'Physics is Poetry'}),
+    new Clip({screenshot: 'media/star_head_2.png', media:  'media/3-01.mp4', seq: 2, depth: 0.4, title: 'Physics is Poetry'}),
+    new Clip({screenshot: 'media/star_head_2.png', media:  'media/3-05.mp4', seq: 2, depth: 0.8, title: 'Physics is Poetry'}),
+    new Clip({screenshot: 'media/star_head.png', media:  'media/4-01.mp4', seq: 3, depth: 0.1, title: 'Physics is Poetry'}),
+    new Clip({screenshot: 'media/star_head.png', media:  'media/4-02.mp4', seq: 3, depth: 0.3, title: 'Physics is Poetry'}),
+    new Clip({screenshot: 'media/star_head.png', media:  'media/4-04.mp4', seq: 3, depth: 0.5, title: 'Physics is Poetry'}),
+    new Clip({screenshot: 'media/star_head.png', media:  'media/4-05.mp4', seq: 3, depth: 0.7, title: 'Physics is Poetry'}),
+    new Clip({screenshot: 'media/star_head.png', media:  'media/4-06.mp4', seq: 3, depth: 0.9, title: 'Physics is Poetry'})
   ]);
 });
 
