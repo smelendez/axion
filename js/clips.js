@@ -367,7 +367,7 @@ $(document).ready(function(){
     new Clip({screenshot: 'media/03a.png', media:  'media/03a.mp4', seq: 3, depth: 0.2, speakername: 'Martin Pohl & Elena Aprile', title: 'No Time to Lose'}),
     new Clip({screenshot: 'media/03b.png', media:  'media/03b.mp4', seq: 3, depth: 0.4, speakername: 'Sean Carroll & Elena Aprile', title: 'Multiverses'}),
     new Clip({screenshot: 'media/03c.png', media:  'media/03c.mp4', seq: 3, depth: 0.7, speakername: 'Sean Carroll & Elena Aprile', title: 'Many Worlds'}),
-    new Clip({screenshot: 'media/conclusion.png', media:  'media/outro.mp4', seq: 4, depth: 0.5, speakername: 'Sean Carroll', title: 'The Big Bang'}),
+    new Clip({screenshot: 'media/outro.png', media:  'media/outro.mp4', seq: 4, depth: 0.5, speakername: 'Sean Carroll', title: 'The Big Bang'}),
   ], CHAPTERS);
 });
 
