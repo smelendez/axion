@@ -8,3 +8,4 @@
 - Filter & transcode
 - Titles for clips
 - Intro screen with how-to
+- Switch videos for same chapter in midstream
