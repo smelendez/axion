@@ -71,7 +71,11 @@ body {
   font-family: Helvetica, Arial, sans-serif;
   text-align: center;
   font-size: 11px;
-
+}
+#hover_preview .preview_part {
+  font-size: 13px;
+  font-weight: bold;
+  color: #cca;
 }
 .clip .playbutton {
   position: absolute;

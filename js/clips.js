@@ -204,7 +204,7 @@ Clip.prototype.setPlaying = function(playing) {
   this.playing = playing;
 }
 Clip.prototype.preview = function(){
-    return '<img width="150px" height="150px" id="preview_screenshot" src="' + this.screenshot + '" /> <div id="preview_speakername">' + this.speakername + '</div><div id="preview_title">' + this.title + '</div>'
+    return '<div class="preview_part">Part ' + (this.seq + 1) + '</div> <img width="150px" height="150px" id="preview_screenshot" src="' + this.screenshot + '" /> <div id="preview_speakername">' + this.speakername + '</div><div id="preview_title">' + this.title + '</div>'
 
 }
 Clip.prototype.setPlaying = function(playing) {
