@@ -101,16 +101,24 @@ $(document).ready(function(){
   playerCenter.top += $player.height() / 2;
   playerCenter.left += $player.width() / 2;
   var radius = 275;
+  var svg = d3.select("svg#clock");
 
   for (var i = 0; i < 12; i ++) {
-    var $dot = $('<circle r=10 id="playerdot-' + i + '" class="playerdot"></circle>');
-    $dot.attr({
-     cy: radius + Math.sin((i / 12) * 2 * Math.PI - Math.PI / 2) * radius - 10 + '',
-     cx: radius + Math.cos((i / 12) * 2 * Math.PI - Math.PI / 2) * radius - 10 + '',
-     fill: 'pink'
+    var dot = svg.append("circle");
+    var dotRadius = 8;
+    var strokeWidth = 2;
+    dot.attr({
+      r: dotRadius,
+      id: 'playerdot-' + i,
+      class: 'playerdot',
+     cy: radius + Math.sin((i / 12) * 2 * Math.PI - Math.PI / 2) * radius + dotRadius  + strokeWidth,
+     cx: radius + Math.cos((i / 12) * 2 * Math.PI - Math.PI / 2) * radius + dotRadius + strokeWidth,
+     fill: '#fa9fb5',
+     stroke: '#fa9fb5',
+     'stroke-width': strokeWidth
 
     });
-    $('#clock').append($dot);
+//    $('#clock').append($dot);
   }
 
 

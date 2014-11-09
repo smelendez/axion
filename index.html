@@ -10,6 +10,7 @@
     <script type="text/javascript" src="js/jquery-1.11.1.js"></script>
     <script type="text/javascript" src="js/popcorn.min.js"></script>
     <script type="text/javascript" src="js/underscore-min.js"></script>
+    <script type="text/javascript" src="js/d3.v3.min.js"></script>
     <script type="text/javascript" src="js/clips.js"></script>
     <script type="text/javascript" src="js/depth.js"></script>
     <script type="text/javascript" src="js/player.js"></script>
@@ -20,39 +21,32 @@
     <div id="viewport">
       <video id="player">
       </video>
-      <svg id="clock" width="550" height="550" viewBox="0 0 550 550">
-      
-      </svg>
       <div id="hover_preview"></div>
-    <div id="intro">
-      <div id="stage1">
-        <h1>Welcome to Axion.</h1>
-        <h2>A meditative exploration of the scientific method and the human instinct
-        to explore our place in the universe.</h2> 
-      </div>
-      <div id="stage2">
-        <svg id="intro-uparrowkey">
-	  <rect x="0" y="0" rx="10" ry="10" width="50" height="50" />
-        </svg>
+      <svg id="clock" xmlns="http://www.w3.org/2000/svg" width="570" height="570">
+      </svg>
+      <div id="intro">
+        <div id="stage1">
+          <h1>Welcome to Axion.</h1>
+          <h2>A meditative exploration of the scientific method and the human instinct
+          to explore our place in the universe.</h2> 
+        </div>
+        <div id="stage2">
+        <span id="intro-uparrowkey"></span>
         <h2>Once we get started, use the up and down arrow keys to tell us how you want
         to experience Axion.
         Press down to go in depth into the theory of dark matter and dark energy.
         Press up to learn more about the broader implications of these physisics' work.
         Whichever you choose, Axion will explore the same subjects.</h2>
-        <svg id="intro-downarrowkey">
-	  <rect x="0" y="0" rx="10" ry="10" width="50" height="50" />
-        </svg>
+        <span id="intro-downarrowkey"></span>
       </div>
       <div id="stage3">
-        <svg id="intro-spacebarkey">
-	  <rect x="0" y="0" rx="10" ry="10" width="250" height="50" />
-        </svg>
+        <span id="intro-spacebarkey"></span>
         <h2>Press space to pause and play the video.</h2>
       </div>
       <div id="stage4">
         <h2>Press space to begin.</h2>
       </div>
-    </div>
+     </div>
     </div>
   </body>
 </html>
