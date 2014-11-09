@@ -28,7 +28,7 @@ $(document).ready(function(){
         svg.select('#playerdot-' + (i)).attr("fill","#31a354");
       }
       else {
-        svg.select('#playerdot-' + (i)).attr("fill","#fa9fb5");
+        svg.select('#playerdot-' + (i)).attr("fill","#666");
 
       }
 
@@ -36,7 +36,7 @@ $(document).ready(function(){
     
     g.select(".arc").remove();
     var arc = d3.svg.arc().
-    innerRadius(274).outerRadius(275)
+    innerRadius(275).outerRadius(275)
     .startAngle(0)
     .endAngle((ct / duration) * Math.PI * 2);
     g.append("path").attr("fill", "#31a354").attr("d",arc).attr("class","arc").attr("stroke", "#31a354"); // Green

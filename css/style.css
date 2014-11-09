@@ -9,11 +9,6 @@ body {
   width: 20px;
   border-radius: 25px; 
   cursor: pointer;
-  border: solid 1px pink;
-}
-.playerdot.filled {
-  background-color: pink;
-
 }
 #viewport {
   position: fixed;
@@ -76,4 +71,12 @@ body {
 .clip:hover .playbutton {
   display: inline-block;
 
+}
+.arc {
+  stroke-width: 6px;
+}
+#clock circle.outer {
+  fill: none;
+  stroke-width: 6px;
+  stroke: #666;
 }

@@ -105,18 +105,15 @@ $(document).ready(function(){
 
   for (var i = 0; i < 12; i ++) {
     var dot = svg.append("circle");
-    var dotRadius = 8;
-    var strokeWidth = 2;
+    var dotRadius = 10;
     dot.attr({
       r: dotRadius,
       id: 'playerdot-' + i,
       class: 'playerdot',
-     cy: radius + Math.sin((i / 12) * 2 * Math.PI - Math.PI / 2) * radius + dotRadius  + strokeWidth,
-     cx: radius + Math.cos((i / 12) * 2 * Math.PI - Math.PI / 2) * radius + dotRadius + strokeWidth,
-     fill: '#fa9fb5',
-     stroke: '#fa9fb5',
-     'stroke-width': strokeWidth
-
+     cy: radius + Math.sin((i / 12) * 2 * Math.PI - Math.PI / 2) * radius + dotRadius,
+     cx: radius + Math.cos((i / 12) * 2 * Math.PI - Math.PI / 2) * radius + dotRadius,
+     fill: '#666',
+     'stroke-width': 0
     });
 //    $('#clock').append($dot);
   }
