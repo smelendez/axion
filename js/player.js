@@ -22,6 +22,10 @@ $(document).ready(function(){
   PLAYER.on('timeupdate', function(){
     var ct = PLAYER.currentTime();
     var duration = PLAYER.duration();
+    if (!duration) {
+      // Don't generate the 'clock' until we know how long the clip is
+      return;
+    }
 
     for (var i = 0; i < 12; i++){
       if (ct >= (i / 12) * duration) {
