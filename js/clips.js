@@ -84,7 +84,8 @@ function getChapterLeft(seq_diff) {
   return newLeft;
 }
 
-function Chapter(color, seq) {
+function Chapter(color, title, seq) {
+  this.title = title;
   this.dom = $('<div class="chapter"/>')
      .css('background-color', color);
   var number = this.dom.append('<span>' + (seq+1) + '</span>');
@@ -197,7 +198,7 @@ Clip.prototype.setPlaying = function(ctx, playing) {
   }
 }
 Clip.prototype.preview = function(){
-    return '<div class="preview_part">Part ' + (this.seq + 1) + '</div> <img width="150px" height="150px" id="preview_screenshot" src="' + this.screenshot + '" /> <div id="preview_speakername">' + this.speakername + '</div><div id="preview_title">' + this.title + '</div>'
+    return '<div class="preview_part">' + CHAPTERS[this.seq].title + '</div> <img width="150px" height="150px" id="preview_screenshot" src="' + this.screenshot + '" /> <div id="preview_speakername">' + this.speakername + '</div><div id="preview_title">' + this.title + '</div>'
 
 }
 Clip.prototype.show = function(ctx, lowest) {
@@ -348,6 +349,10 @@ Clips.prototype.playNext = function(opt_new_seq) {
 };
 
 $(document).ready(function(){
+  window.CHAPTERS = [new Chapter('#070711', 'Introduction', 0),
+   new Chapter('#09091B', 'What is Dark Matter', 1),
+   new Chapter('#0B0B26', 'The Life of a Physicist', 2),
+   new Chapter('#0D0D30', 'What\'s next?', 3)];
   window.CLIPS = new Clips([
     new Clip({screenshot: 'media/test02.png', media:  'media/test02.mp4', seq: 0, depth: 0.5, speakername: 'Horatio Darkmatter', title: 'Physics is Poetry'}),
     new Clip({screenshot: 'media/test01.png', media:  'media/test01.mp4', seq: 1, depth: 0.2, speakername: 'Horatio Darkmatter', title: 'Physics is Poetry'}),
@@ -359,11 +364,7 @@ $(document).ready(function(){
     new Clip({screenshot: 'media/test03.png', media:  'media/test03.mp4', seq: 2, depth: 0.9, speakername: 'Horatio Darkmatter', title: 'Physics is Poetry'}),
     new Clip({screenshot: 'media/test04.png', media:  'media/test04.mp4', seq: 3, depth: 0.4, speakername: 'Horatio Darkmatter', title: 'Physics is Poetry'}),
     new Clip({screenshot: 'media/test01.png', media:  'media/test01.mp4', seq: 3, depth: 0.8, speakername: 'Horatio Darkmatter', title: 'Physics is Poetry'}),
-  ],
-  [new Chapter('#070711', 0),
-   new Chapter('#09091B', 1),
-   new Chapter('#0B0B26', 2),
-   new Chapter('#0D0D30', 3)]);
+  ], CHAPTERS);
 });
 
 
