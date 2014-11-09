@@ -41,9 +41,8 @@ $(document).ready(function(){
         $('#player').css('opacity', 0);
 	PLAYER._play(); }, 1000);
   });
-  $('#player').attr('src', CLIPS.playNext());
-  CLIPS.show();
-
+  $('#player').attr('src', CLIPS.show());
+  PLAYER.pause();
   var getArcFromPct = function(playPct) {
     var arcAngle = playPct * Math.PI * 2;
     return d3.svg.arc().
