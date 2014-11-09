@@ -106,6 +106,7 @@ Chapter.prototype.setPos = function(ctx, opt_noAnimate) {
       newWidth = 0;
   }
   if (opt_noAnimate) {
+    clearInterval(this.ca);
     this.dom.css({'left': newLeft, 'width': newWidth});
   } else {
     this.ca = animateChapter(
@@ -174,6 +175,7 @@ Clip.prototype.setPos = function(ctx, lowest, opt_noAnimate) {
     'font-size': .36 * newWidth
   });
   if (opt_noAnimate) {
+    clearInterval(this.ca);
     this.dom.css({'top': newTop, 'left': newLeft});
   } else {
     if (Math.abs(oldLeft - newLeft) < 10) {
@@ -187,9 +189,11 @@ Clip.prototype.setPos = function(ctx, lowest, opt_noAnimate) {
 Clip.prototype.setPlaying = function(ctx, playing) {
   this.dom.css('opacity', playing ? 0 : 1);
   if (this.playing && !playing) {
+    this.playing = playing;
     this.setPos(ctx, 0, true);
+  } else {
+    this.playing = playing;
   }
-  this.playing = playing;
 }
 Clip.prototype.preview = function(){
     return '<div class="preview_part">Part ' + (this.seq + 1) + '</div> <img width="150px" height="150px" id="preview_screenshot" src="' + this.screenshot + '" /> <div id="preview_speakername">' + this.speakername + '</div><div id="preview_title">' + this.title + '</div>'
