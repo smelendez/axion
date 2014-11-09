@@ -76,6 +76,13 @@ function animateChapter(obj, old_left, old_width, new_left, new_width, duration,
    }, 10);
   return intv;
 }
+function getChapterLeft(seq_diff) {
+  var newLeft = seq_diff * 80;
+  if (newLeft > 0) newLeft += 810; else newLeft += 310;
+  if (newLeft > 1060) newLeft = 1060;
+  if (newLeft < 0) newLeft = 0;
+  return newLeft;
+}
 
 function Chapter(color, seq) {
   this.dom = $('<div class="chapter"/>')
@@ -88,15 +95,9 @@ Chapter.prototype.setPos = function(ctx, opt_noAnimate) {
   var oldLeft = parseFloat(this.dom.css('left'));
   var oldWidth = parseFloat(this.dom.css('width'));
   var newWidth = (ctx.seq == this.seq) ? 580 : 80;
-  var newLeft = ((this.seq - ctx.seq) * 80);
-  if (newLeft > 0) newLeft += 810; else newLeft += 310;
-  if (newLeft > 1050) {
+  var newLeft = getChapterLeft(this.seq - ctx.seq);
+  if (newLeft == 1060 || newLeft == 0) {
       newWidth = 0;
-      newLeft = 1050;
-  }
-  if (newLeft < 0) {
-     newWidth = 0;
-     newLeft = 0;
   }
   if (opt_noAnimate) {
     this.dom.css({'left': newLeft, 'width': newWidth});
@@ -162,16 +163,11 @@ Clip.prototype.setPos = function(ctx, lowest, opt_noAnimate) {
     var seqFactor = 1 / Math.pow(Math.abs(this.seq - ctx.seq), 0.5);
     var sizeFactor = depthFactor * seqFactor;
 
-    newLeft = ((this.seq - ctx.seq) * 80);
-    if (newLeft > 0) newLeft += 830; else newLeft += 310;
-    if (newLeft > 1070) {
+    newLeft = getChapterLeft(this.seq - ctx.seq);
+    if (newLeft == 1060 || newLeft == 0) {
       sizeFactor = 0;
-      newLeft = 1070;
     }
-    if (newLeft < 0) {
-      sizeFactor = 0;
-      newLeft = 0;
-    }
+    newLeft += 40 - (25 * sizeFactor);
 
     var vertRange = 720 / Math.pow(Math.abs(this.seq - ctx.seq), 0.7);
     var vertNoise = Math.random() * 20 - 10;
