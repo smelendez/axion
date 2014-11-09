@@ -44,7 +44,7 @@ function clearIntro() {
   INTRO_CUES.forEach(function(cue) {
     clearTimeout(cue);
   });
-  PLAYER.play();
+  PLAYER._play();
 }
   
 
