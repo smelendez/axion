@@ -3,11 +3,11 @@
 
   position: absolute;
   background-color: black;
-  width: 20px;
-  right: 75px;
+  width: 40px;
+  right: 55px;
   top: 450px;
   margin-top: -200px;
-  height: 400px;
+  height: 250px;
 }
 .depthMeterDot {
   position: absolute;
@@ -16,7 +16,7 @@
 }
 
 .depthMeterDot.filled {
-  background-color: #ff6;
+  background-color: #fd0;
 
 }
 

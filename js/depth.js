@@ -11,10 +11,9 @@ $(document).ready(function(){
       var $dot = $('<div class="depthMeterDot" id="depthMeterDot-' + (i+1) + '"></div>');
       $dot.css({
         top: (5 + i * 10) + '%',
-        width: (10 + i) + 'px',
-        height: (10 + i) + 'px',
-        'margin-left': (10 - (i/2.0)) + 'px',
-        'border-radius': (10 + i) + 'px',
+        width: (20 + 2*i) + 'px',
+        height: '8px',
+        'margin-left': (20 - i) + 'px',
       });
       this.$dots.push($dot);
       this.$container.append($dot);
