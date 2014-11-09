@@ -5,6 +5,19 @@ body {
   padding: 0;
   position: fixed;
 }
+#player-titles {
+  color: white;
+  font-size: 24px;
+  font-family: Helvetica, Arial, sans-serif;
+  position: absolute;
+  line-height: 36px;
+  top: 400px;
+  left: 360px;
+  z-index: 20;
+  text-shadow: 2px 2px #000;
+  display: none;
+
+}
 #viewport {
   background: #000;
   position: fixed;
