@@ -18,8 +18,8 @@ $(document).ready(function(){
       this.$dots.push($dot);
       this.$container.append($dot);
     }
-    $('#depthMeterContainer').prepend('<div class="meterLabel topLabel">Deeper</div>');
-    $('#depthMeterContainer').append('<div class="meterLabel bottomLabel">Broader</div>');
+    $('#depthMeterContainer').prepend('<div class="meterLabel topLabel">Broader</div>');
+    $('#depthMeterContainer').append('<div class="meterLabel bottomLabel">Deeper</div>');
     $('.bottomLabel').click(function(){
       that.decrementDepth();
     });
