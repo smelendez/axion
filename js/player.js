@@ -28,7 +28,6 @@ $(document).ready(function(){
   var setArcAndDots = function() {
     var ct = PLAYER.currentTime();
     var duration = PLAYER.duration();
-    console.log(ct, duration);
     var arc_sel = g.select(".playerarc");
     if (!duration) {
       arc_sel.remove();
