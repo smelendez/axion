@@ -160,7 +160,6 @@ $(document).ready(function(){
     new Clip('media/star_head.png', 'media/4-05.mp4', 3, 0.7),
     new Clip('media/star_head.png', 'media/4-06.mp4', 3, 0.9),
   ]);
-  window.CLIPS.show();
 });
 
 

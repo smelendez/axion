@@ -54,10 +54,15 @@ $(document).ready(function(){
 
   window.DEPTHMETER = new DepthMeter($('#viewport'), 0.5);
 
-
-
   $(document).on('keyup', function(e){
-
+    if (INTRO) {
+      if (e.which == 32) {
+	$('#intro').css('visibility', 'hidden');
+        INTRO = false;
+        PLAYER.play();
+      }
+      return;
+    }
     switch(e.which){
       case 32:
         // Space bar

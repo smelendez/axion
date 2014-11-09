@@ -14,38 +14,6 @@
   background-color: white;
   cursor: pointer;
 }
-/*
-.depthMeterDot.filled:nth-child(1) {
-  background-color: #bfd3e6;
-}
-.depthMeterDot.filled:nth-child(2) {
-  background-color: #fd30dd;
-}
-.depthMeterDot.filled:nth-child(3) {
-  background-color: #fcc5c0;
-}
-.depthMeterDot.filled:nth-child(4) {
-  background-color: #fa9fb5;
-}
-.depthMeterDot.filled:nth-child(5) {
-  background-color: #f768a1;
-}
-.depthMeterDot.filled:nth-child(6) {
-  background-color: #dd3497;
-}
-.depthMeterDot.filled:nth-child(7) {
-  background-color: #ae017e;
-}
-.depthMeterDot.filled:nth-child(8) {
-  background-color: #7a0177;
-}
-.depthMeterDot.filled:nth-child(9) {
-  background-color: #49006a;
-}
-.depthMeterDot.filled:nth-child(10) {
-  background-color: #4d004b;
-}
-*/
 
 .depthMeterDot.filled {
   background-color: #ae017e;
