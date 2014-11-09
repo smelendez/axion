@@ -59,7 +59,7 @@ $(document).ready(function(){
     }
     if (!durationSet){
       durationSet = true;
-      if (cueEvent) {;
+      if (cueEvent) {
         PLAYER.removeTrackEvent(cueEvent);
         cueEvent = null;
 
