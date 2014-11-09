@@ -17,7 +17,7 @@ function Clip(screenshot, media, seq, depth, title) {
   this.seq = seq;
   this.title = title;
 }
-Clip.prototype.setPos = function(ctx, opt_noAnimate) {
+Clip.prototype.setPos = function(ctx, lowest, opt_noAnimate) {
   // TODO: actual animation w/ circular paths around main video
   if (this.playing) {
     var clip = this;
@@ -33,7 +33,7 @@ Clip.prototype.setPos = function(ctx, opt_noAnimate) {
        'top': 85,
        'left': 365});
     }
-    return;
+    return -1;
   }
   this.dom.css('opacity', '1');
 
@@ -66,6 +66,8 @@ Clip.prototype.setPos = function(ctx, opt_noAnimate) {
 
     newTop = vertNoise - (25 * sizeFactor) + 360 +
 	    (this.depth - ctx.depth)/2 * vertRange;
+    if (newTop < lowest) newTop = lowest;
+
     newWidth = 50 * sizeFactor;
     newHeight = 50 * sizeFactor;
   }
@@ -82,6 +84,7 @@ Clip.prototype.setPos = function(ctx, opt_noAnimate) {
       'top': newTop,
       'left': newLeft});
  }
+ return newTop + newHeight - (.18 * newHeight);
 }
 Clip.prototype.setPlaying = function(playing) {
   this.playing = playing;
@@ -90,15 +93,6 @@ Clip.prototype.preview = function(){
     return '<img width="200px" height="200px" id="preview_screenshot" src="' + this.screenshot + '" /> <div id="preview_title">' + this.title + '</div>'
 
 }
-Clip.prototype.show = function(ctx) {
-  var that = this;
-  this.setPos(ctx);
-  this.dom.appendTo($('#viewport'));
-
-  this.dom.animate({
-    'top': newTop,
-    'left': newLeft});
-}
 Clip.prototype.setPlaying = function(playing) {
   this.playing = playing;
 }
@@ -106,9 +100,9 @@ Clip.prototype.preview = function(){
     return '<img width="200px" height="200px" id="preview_screenshot" src="' + this.screenshot + '" /> <div id="preview_title">Dr. Horatio Darkmatter:<br /> "I believe in science"</div>'
 
 }
-Clip.prototype.show = function(ctx) {
+Clip.prototype.show = function(ctx, lowest) {
   var that = this;
-  this.setPos(ctx, true);
+  var newLowest = this.setPos(ctx, lowest, true);
   this.dom.appendTo($('#viewport'));
   this.dom.on('mouseover', function(){
     $('#hover_preview').html(that.preview()).show();
@@ -123,6 +117,7 @@ Clip.prototype.show = function(ctx) {
     $('#player').attr('src', that.media);
     PLAYER.play();
   });
+  return newLowest;
 }
 
 function Clips(vid_list) {
@@ -145,22 +140,40 @@ Clips.prototype.play = function(playing) {
   var clips = this;
   this.context.seq = playing.seq;
   this.context.video_depth = playing.depth;
+  var lowest = 0;
+  var seq = 0;
   this.videos.forEach(function(video) {
     video.setPlaying(video == playing);
-    video.setPos(clips.context);
+    if (video.seq != seq) {
+      lowest = 0;
+      seq = video.seq;
+    }
+    lowest = video.setPos(clips.context, lowest);
   });
 }
 Clips.prototype.setCurDepth = function(cur_depth) {
   var clips = this;
   this.context.depth = cur_depth;
+  var lowest = 0;
+  var seq = 0;
   this.videos.forEach(function(video) {
-    video.setPos(clips.context);
+    if (video.seq != seq) {
+      lowest = 0;
+      seq = video.seq;
+    }
+    lowest = video.setPos(clips.context, lowest);
   });
 }
 Clips.prototype.show = function()  {
   var clips = this;
+  var lowest = 0;
+  var seq = 0;
   this.videos.forEach(function(video) {
-    video.show(clips.context);
+    if (video.seq != seq) {
+      lowest = 0;
+      seq = video.seq;
+    }
+    lowest = video.show(clips.context, lowest);
   });
 }
 Clips.prototype.playNext = function() {
