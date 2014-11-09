@@ -24,10 +24,10 @@ function stage1() {
 function stage2() {
   $('#stage1').css('opacity', '0');
   $('#stage2').css('opacity', '1');
-  INTRO_CUES.push(setTimeout(clickDown, 5000));
-  INTRO_CUES.push(setTimeout(clickDown, 6000));
-  INTRO_CUES.push(setTimeout(clickUp, 10000));
-  INTRO_CUES.push(setTimeout(clickUp, 11000));
+  INTRO_CUES.push(setTimeout(clickUp, 5000));
+  INTRO_CUES.push(setTimeout(clickUp, 6000));
+  INTRO_CUES.push(setTimeout(clickDown, 10000));
+  INTRO_CUES.push(setTimeout(clickDown, 11000));
   INTRO_CUES.push(setTimeout(stage3, 18000));
   // Use your up and down arrow keys to adjust the depth
 }
