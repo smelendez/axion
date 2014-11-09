@@ -1,0 +1,10 @@
+- Write out some presentation notes
+- Jason: put together a Keynote preso with Axion shots incl. EEG
+- Finish progress indicator
+- Lots of fit & finish
+- Figure out look & feel, finalize layout
+- Collect clips
+- Build images from finalized clips
+- Filter & transcode
+- Titles for clips
+- Intro screen with how-to

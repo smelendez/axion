@@ -17,6 +17,8 @@ $(document).ready(function(){
 	PLAYER.play(); }, 1000);
   });
   $('#player').attr('src', CLIPS.playNext());
+  CLIPS.show();
+
   PLAYER.on('timeupdate', function(){
     var ct = PLAYER.currentTime();
     var duration = PLAYER.duration();

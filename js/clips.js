@@ -168,7 +168,6 @@ $(document).ready(function(){
     new Clip({screenshot: 'media/star_head.png', media:  'media/4-05.mp4', seq: 3, depth: 0.7}),
     new Clip({screenshot: 'media/star_head.png', media:  'media/4-06.mp4', seq: 3, depth: 0.9}),
   ]);
-  window.CLIPS.show();
 });
 
 
