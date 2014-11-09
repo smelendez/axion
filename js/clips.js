@@ -1,6 +1,9 @@
 function Clip(screenshot, media, seq, depth) {
   if (typeof screenshot == 'object') {
-    return new Clip(screenshot.screenshot, screenshot.media, screenshot.seq, screenshot.depth);
+    media = screenshot.media;
+    seq = screenshot.seq;
+    depth = screenshot.depth;
+    screenshot = screenshot.screenshot;
   }
 
 
