@@ -329,10 +329,10 @@ $(document).ready(function(){
     new Clip({screenshot: 'media/star_head.png', media:  'media/4-04.mp4', seq: 3, depth: 0.5, speakername: 'Horatio Darkmatter', title: 'Physics is Poetry'}),
     new Clip({screenshot: 'media/star_head.png', media:  'media/4-06.mp4', seq: 3, depth: 0.9, speakername: 'Horatio Darkmatter', title: 'Physics is Poetry'})
   ],
-  [new Chapter('#001', 0),
-   new Chapter('#002', 1),
-   new Chapter('#003', 2),
-   new Chapter('#004', 3)]);
+  [new Chapter('#070711', 0),
+   new Chapter('#09091B', 1),
+   new Chapter('#0B0B26', 2),
+   new Chapter('#0D0D30', 3)]);
 });
 
 
