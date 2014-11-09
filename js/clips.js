@@ -357,7 +357,7 @@ $(document).ready(function(){
    new Chapter('#0D0D30', 'What\'s next?', 3),
    new Chapter('#101035', 'Conclusion', 4)];
   window.CLIPS = new Clips([
-    new Clip({screenshot: 'media/intro.png', media:  'media/intro.mp4', seq: 0, depth: 0.5, speakername: 'Sean Carroll', title: 'The History of Everything'}),
+    new Clip({screenshot: 'media/intro.png', media:  'media/intro.mp4', seq: 0, depth: 0.5, speakername: 'Sean Carroll', title: 'Early Times'}),
     new Clip({screenshot: 'media/01a.png', media:  'media/01a.mp4', seq: 1, depth: 0.1, speakername: 'Sean Carroll', title: 'What is Dark Matter?'}),
     new Clip({screenshot: 'media/01b.png', media:  'media/01b.mp4', seq: 1, depth: 0.4, speakername: 'Sean Carroll', title: 'What is Dark Matter?'}),
     new Clip({screenshot: 'media/01c.png', media:  'media/01c.mp4', seq: 1, depth: 0.7, speakername: 'Sean Carroll', title: 'The Missing Mass'}),
