@@ -45,6 +45,36 @@ $(document).ready(function(){
       }
     }
   };
+  PLAYER.forwardDot = function(){
+    var ct = PLAYER.currentTime();
+    var duration = PLAYER.duration();
+    var progress = ct / duration;
+    var dots = duration / 12;
+    
+
+    var curDot = Math.ceil(ct / dots);
+    if (curDot == 12) {
+      return;
+    }
+    PLAYER.currentTime((curDot+1) * dots);
+
+
+
+  }
+  PLAYER.backDot = function(){
+    var ct = PLAYER.currentTime();
+    var duration = PLAYER.duration();
+    var progress = ct / duration;
+    var dots = duration / 12;
+    var curDot = Math.floor(ct / dots);
+    if (curDot == 0) {
+      return;
+    }
+    PLAYER.currentTime((curDot - 1) * dots);
+    
+    
+
+  }
   setInterval(setArcAndDots, 20);
  
   svg.selectAll(".playerdot").on("click", function() {

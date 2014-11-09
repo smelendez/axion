@@ -53,7 +53,7 @@ $(document).ready(function(){
 
   window.DEPTHMETER = new DepthMeter($('#viewport'), 0.5);
 
-  $(document).on('keyup', function(e){
+  $(document).on('keydown', function(e){
     if (INTRO) {
       if (e.which == 32) {
 	$('#intro').css('visibility', 'hidden');
@@ -72,13 +72,13 @@ $(document).ready(function(){
         break;
 
       case 37:
+        PLAYER.backDot();
         // Left arrow
-        xpos--;
         break;
 
       case 39:
         // Right arrow
-        xpos++;
+        PLAYER.forwardDot();
         break;
 
       case 38:
