@@ -1,4 +1,9 @@
 function Clip(screenshot, media, seq, depth) {
+  if (typeof screenshot == 'object') {
+    return new Clip(screenshot.screenshot, screenshot.media, screenshot.seq, screenshot.depth);
+  }
+
+
   this.dom = $('<div class="clip"><i class="playbutton fa fa-play"></i></div>')
     .css('background-image', 'url("' + screenshot + '")');
   // TODO: mask
@@ -145,20 +150,20 @@ Clips.prototype.playNext = function() {
 
 $(document).ready(function(){
   window.CLIPS = new Clips([
-    new Clip('media/star_head.png', 'media/1-07.mp4', 0, 0.2),
-    new Clip('media/star_head.png', 'media/1-08.mp4', 0, 0.5),
-    new Clip('media/star_head_2.png', 'media/1-09.mp4', 0, 0.7),
-    new Clip('media/star_head.png', 'media/2-01.mp4', 1, 0.1),
-    new Clip('media/star_head.png', 'media/2-03.mp4', 1, 0.2),
-    new Clip('media/star_head_2.png', 'media/2-04.mp4', 1, 0.6),
-    new Clip('media/star_head_2.png', 'media/2-05.mp4', 1, 0.9),
-    new Clip('media/star_head_2.png', 'media/3-01.mp4', 2, 0.4),
-    new Clip('media/star_head_2.png', 'media/3-05.mp4', 2, 0.8),
-    new Clip('media/star_head.png', 'media/4-01.mp4', 3, 0.1),
-    new Clip('media/star_head.png', 'media/4-02.mp4', 3, 0.3),
-    new Clip('media/star_head.png', 'media/4-04.mp4', 3, 0.5),
-    new Clip('media/star_head.png', 'media/4-05.mp4', 3, 0.7),
-    new Clip('media/star_head.png', 'media/4-06.mp4', 3, 0.9),
+    new Clip({screenshot: 'media/star_head.png', media:  'media/1-07.mp4', seq: 0, depth: 0.2}),
+    new Clip({screenshot: 'media/star_head.png', media:  'media/1-08.mp4', seq: 0, depth: 0.5}),
+    new Clip({screenshot: 'media/star_head_2.png', media:  'media/1-09.mp4', seq: 0, depth: 0.7}),
+    new Clip({screenshot: 'media/star_head.png', media:  'media/2-01.mp4', seq: 1, depth: 0.1}),
+    new Clip({screenshot: 'media/star_head.png', media:  'media/2-03.mp4', seq: 1, depth: 0.2}),
+    new Clip({screenshot: 'media/star_head_2.png', media:  'media/2-04.mp4', seq: 1, depth: 0.6}),
+    new Clip({screenshot: 'media/star_head_2.png', media:  'media/2-05.mp4', seq: 1, depth: 0.9}),
+    new Clip({screenshot: 'media/star_head_2.png', media:  'media/3-01.mp4', seq: 2, depth: 0.4}),
+    new Clip({screenshot: 'media/star_head_2.png', media:  'media/3-05.mp4', seq: 2, depth: 0.8}),
+    new Clip({screenshot: 'media/star_head.png', media:  'media/4-01.mp4', seq: 3, depth: 0.1}),
+    new Clip({screenshot: 'media/star_head.png', media:  'media/4-02.mp4', seq: 3, depth: 0.3}),
+    new Clip({screenshot: 'media/star_head.png', media:  'media/4-04.mp4', seq: 3, depth: 0.5}),
+    new Clip({screenshot: 'media/star_head.png', media:  'media/4-05.mp4', seq: 3, depth: 0.7}),
+    new Clip({screenshot: 'media/star_head.png', media:  'media/4-06.mp4', seq: 3, depth: 0.9}),
   ]);
 });
 
