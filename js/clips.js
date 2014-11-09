@@ -90,7 +90,7 @@ function Chapter(color, seq) {
   var number = this.dom.append('<span>' + (seq+1) + '</span>');
   number.on('click', function() {
     var media = CLIPS.playNext(seq);
-    $('#player').attr('src', bestVid.media);
+    $('#player').attr('src', media);
     PLAYER.play();
   });
   this.dom.appendTo($('#viewport'));
