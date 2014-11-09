@@ -4,12 +4,6 @@ body {
   padding: 0;
   position: fixed;
 }
-.playerdot {
-  height: 20px;
-  width: 20px;
-  border-radius: 25px; 
-  cursor: pointer;
-}
 #viewport {
   position: fixed;
   top: 50%;
@@ -72,11 +66,24 @@ body {
   display: inline-block;
 
 }
-.arc {
+.playerarc {
   stroke-width: 6px;
+  stroke: #cc6;
 }
 #clock circle.outer {
   fill: none;
   stroke-width: 6px;
   stroke: #666;
 }
+.playerdot {
+  height: 20px;
+  width: 20px;
+  border-radius: 25px; 
+  cursor: pointer;
+  stroke-width: 0;
+  fill: #666;
+}
+.playerdot-filled {
+  fill: #cc6;
+}
+  

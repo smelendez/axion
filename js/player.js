@@ -19,39 +19,36 @@ $(document).ready(function(){
   $('#player').attr('src', CLIPS.playNext());
   CLIPS.show();
 
-  PLAYER.on('timeupdate', function(){
+  var getArcFromPct = function(playPct) {
+    var arcAngle = playPct * Math.PI * 2;
+    return d3.svg.arc().
+    innerRadius(275).outerRadius(275)
+    .startAngle(0).endAngle(arcAngle)();
+  };
+  var setArcAndDots = function() {
     var ct = PLAYER.currentTime();
     var duration = PLAYER.duration();
+    console.log(ct, duration);
+    var arc_sel = g.select(".playerarc");
     if (!duration) {
-      // Don't generate the 'clock' until we know how long the clip is
+      arc_sel.remove();
       return;
     }
-
-    for (var i = 0; i < 12; i++){
-      if (ct >= (i / 12) * duration) {
-        svg.select('#playerdot-' + (i)).attr("fill","#31a354");
-      }
-      else {
-        svg.select('#playerdot-' + (i)).attr("fill","#666");
-
-      }
-
+    if (arc_sel.empty()) {
+      arc_sel = g.append("path").attr("class","playerarc");
     }
-    
-    g.select(".arc").remove();
-    var arc = d3.svg.arc().
-    innerRadius(275).outerRadius(275)
-    .startAngle(0)
-    .endAngle((ct / duration) * Math.PI * 2);
-    g.append("path").attr("fill", "#31a354").attr("d",arc).attr("class","arc").attr("stroke", "#31a354"); // Green
-
-    
-
-  });
-  $('#clock').on('click', function() {
-   if (PLAYER.paused()) PLAYER.play(); else PLAYER.pause();
-  });
-  svg.selectAll(".playerdot").on("click", function(){
+    arc_sel.attr("d", getArcFromPct(ct/duration));
+    for (var i = 0; i < 12; i++){
+      if (ct/duration >= (i / 12.0)) {
+        svg.select('#playerdot-' + (i)).attr("class", "playerdot playerdot-filled");
+      } else {
+        svg.select('#playerdot-' + (i)).attr("class", "playerdot");
+      }
+    }
+  };
+  setInterval(setArcAndDots, 20);
+ 
+  svg.selectAll(".playerdot").on("click", function() {
     var id = this.id;
     var position = id.split("-")[1];
     PLAYER.currentTime(+(position / 12) * PLAYER.duration());
