@@ -138,26 +138,8 @@ Clip.prototype.setPos = function(ctx, lowest, opt_noAnimate) {
   // TODO: actual animation w/ circular paths around main video
   var oldLeft = parseFloat(this.dom.css('left')),
       oldTop = parseFloat(this.dom.css('top'));
-  if (this.playing) {
-    var clip = this;
-    this.dom.css({
-      'opacity': 0,
-      'width': 550,
-      'height': 550,
-    });
-    if (opt_noAnimate) {
-      this.dom.css({'top': 85, 'left': 365});
-    } else {
-      this.ca = animateLinear(
-        this.dom,
-        oldLeft, oldTop,
-        365, 85,
-        3000, this.ca); 
-    }
-    return -1;
-  }
-  this.dom.css('opacity', '1');
   var newTop, newLeft, newWidth, newHeight;
+  if (this.playing) return -1;
   if (this.seq == ctx.seq) {
     newTop = (this.depth < ctx.video_depth) ? 15 : 645;
     newLeft =  360 + (100 * this.depth_order);
@@ -202,15 +184,16 @@ Clip.prototype.setPos = function(ctx, lowest, opt_noAnimate) {
   }
   return newTop + newHeight - (.18 * newHeight);
 }
-Clip.prototype.setPlaying = function(playing) {
+Clip.prototype.setPlaying = function(ctx, playing) {
+  this.dom.css('opacity', playing ? 0 : 1);
+  if (this.playing && !playing) {
+    this.setPos(ctx, 0, true);
+  }
   this.playing = playing;
 }
 Clip.prototype.preview = function(){
     return '<div class="preview_part">Part ' + (this.seq + 1) + '</div> <img width="150px" height="150px" id="preview_screenshot" src="' + this.screenshot + '" /> <div id="preview_speakername">' + this.speakername + '</div><div id="preview_title">' + this.title + '</div>'
 
-}
-Clip.prototype.setPlaying = function(playing) {
-  this.playing = playing;
 }
 Clip.prototype.show = function(ctx, lowest) {
   var that = this;
@@ -235,7 +218,7 @@ Clip.prototype.show = function(ctx, lowest) {
 function Clips(vid_list, chapter_list) {
   this.context = {
     depth: 0.5,
-    seq: -1,
+    seq: 0,
     video_depth: 0.5
   }; 
   this.videos = vid_list;
@@ -256,7 +239,7 @@ Clips.prototype.play = function(playing) {
   var lowest = 0;
   var seq = 0;
   this.videos.forEach(function(video) {
-    video.setPlaying(video == playing);
+    video.setPlaying(clips.context, video == playing);
     if (video.seq != seq) {
       lowest = 0;
       seq = video.seq;
@@ -303,10 +286,27 @@ Clips.prototype.setCurDepth = function(cur_depth) {
     PLAYER.play();
   }
 }
+
+Clips.prototype.getBest = function(new_seq) {
+  var clips = this;
+  var best_diff = 2;
+  var best_clip = null;
+  this.videos.forEach(function(video) {
+    var diff = Math.abs(video.depth - clips.context.depth);
+    if (video.seq == new_seq && diff < best_diff) {
+      best_diff = diff;
+      best_clip = video;
+    }
+  });
+  return best_clip;
+};
+  
 Clips.prototype.show = function()  {
   var clips = this;
   var lowest = 0;
   var seq = 0;
+  var best_clip = this.getBest(0);
+  best_clip.setPlaying(true);
   this.videos.forEach(function(video) {
     if (video.seq != seq) {
       lowest = 0;
@@ -317,6 +317,7 @@ Clips.prototype.show = function()  {
   this.chapters.forEach(function(chapter) {
     chapter.setPos(clips.context, true); 
   });
+  return best_clip.media;
 }
 Clips.prototype.playNext = function(opt_new_seq) {
   var clips = this;
@@ -324,22 +325,14 @@ Clips.prototype.playNext = function(opt_new_seq) {
   if (opt_new_seq !== undefined) {
     new_seq = opt_new_seq;
   }
-  var best_diff = 2;
-  var best_clip = null;
-  this.videos.forEach(function(video) {
-    var diff = Math.abs(video.depth - clips.context.depth);
-    if (video.seq == new_seq && diff < best_diff) {
-      best_diff = diff;
-      best_clip = video;
-    }
-  });
+  var best_clip = this.getBest(new_seq);
   if (best_clip) {
     this.play(best_clip);
     return best_clip.media;
   } else {
     return null;
   }
-}
+};
 
 $(document).ready(function(){
   window.CLIPS = new Clips([

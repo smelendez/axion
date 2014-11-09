@@ -15,6 +15,9 @@ $(document).ready(function(){
         height: '8px',
         'margin-left': (20 - i) + 'px',
       });
+      if (Math.round(startingDepth * 10) > i) {
+        $dot.addClass('filled');
+      }
       this.$dots.push($dot);
       this.$container.append($dot);
     }
@@ -34,15 +37,13 @@ $(document).ready(function(){
       that.setCurDepth(0.1 * index);
 
     });
-    this.setCurDepth(startingDepth || 0);
-    
+    this.curDepth = startingDepth;
   }
 
   DepthMeter.prototype.setCurDepth = function(curDepth){
     this.curDepth = curDepth;
     CLIPS.setCurDepth(curDepth);
     for (var i =0; i < 10; i++) {
-      
       if (Math.round(curDepth * 10) > i) {
         this.$dots[i].addClass('filled');
       }

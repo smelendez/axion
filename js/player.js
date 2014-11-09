@@ -16,8 +16,7 @@ $(document).ready(function(){
 	$('#player').attr('src', nextMedia);
 	PLAYER.play(); }, 1000);
   });
-  $('#player').attr('src', CLIPS.playNext());
-  CLIPS.show();
+  $('#player').attr('src', CLIPS.show());
 
   var getArcFromPct = function(playPct) {
     var arcAngle = playPct * Math.PI * 2;
