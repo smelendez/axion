@@ -55,6 +55,56 @@ function animateLinear(obj, from_x, from_y, to_x, to_y, duration, opt_ca) {
    }, 10);
   return intv;
 }
+function animateChapter(obj, old_left, old_width, new_left, new_width, duration, opt_ca) {
+  if (opt_ca) clearInterval(opt_ca);
+  var old_right = old_left + old_width;
+  var new_right = new_left + new_width;
+  var easer = d3.ease('cubic-in-out');
+  var start = new Date().getTime();
+  var intv = setInterval(function() {
+    var cur = new Date().getTime();
+    var incr = easer((cur - start) / parseFloat(duration));
+    if (incr >= 1) {
+      obj.css({'left': new_left, 'width': new_width});
+      clearInterval(intv);
+      return;
+    }
+    var left = ((1-incr) * old_left + incr * new_left);
+    var right = ((1-incr) * old_right + incr * new_right);
+    obj.css({'left': left,
+             'width': right - left});
+   }, 10);
+  return intv;
+}
+
+function Chapter(color, seq) {
+  this.dom = $('<div class="chapter"/>')
+     .css('background-color', color);
+  this.dom.append('<span>' + (seq+1) + '</span>');
+  this.dom.appendTo($('#viewport'));
+  this.seq = seq;
+}
+Chapter.prototype.setPos = function(ctx, opt_noAnimate) {
+  var oldLeft = parseFloat(this.dom.css('left'));
+  var oldWidth = parseFloat(this.dom.css('width'));
+  var newWidth = (ctx.seq == this.seq) ? 580 : 80;
+  var newLeft = ((this.seq - ctx.seq) * 80);
+  if (newLeft > 0) newLeft += 850; else newLeft += 350;
+  if (newLeft > 1090) {
+      newWidth = 0;
+      newLeft = 1090;
+  }
+  if (newLeft < 0) {
+     newWidth = 0;
+     newLeft = 0;
+  }
+  if (opt_noAnimate) {
+    this.dom.css({'left': newLeft, 'width': newWidth});
+  } else {
+    this.ca = animateChapter(
+      this.dom, oldLeft, oldWidth, newLeft, newWidth, 3000, this.ca);
+  }
+};
 
 function Clip(screenshot, media, seq, depth, title) {
   if (typeof screenshot == 'object') {
@@ -102,7 +152,7 @@ Clip.prototype.setPos = function(ctx, lowest, opt_noAnimate) {
   this.dom.css('opacity', '1');
   var newTop, newLeft, newWidth, newHeight;
   if (this.seq == ctx.seq) {
-    newTop = (this.depth < ctx.video_depth) ? 0 : 645;
+    newTop = (this.depth < ctx.video_depth) ? 15 : 645;
     newLeft =  400 + (100 * this.depth_order);
     if (newLeft >= 600) newLeft += 140;
     newWidth = 75;
@@ -113,10 +163,10 @@ Clip.prototype.setPos = function(ctx, lowest, opt_noAnimate) {
     var sizeFactor = depthFactor * seqFactor;
 
     newLeft = ((this.seq - ctx.seq) * 80);
-    if (newLeft > 0) newLeft += 850; else newLeft += 350;
-    if (newLeft > 1080) {
+    if (newLeft > 0) newLeft += 870; else newLeft += 370;
+    if (newLeft > 1110) {
       sizeFactor = 0;
-      newLeft = 1080;
+      newLeft = 1110;
     }
     if (newLeft < 0) {
       sizeFactor = 0;
@@ -180,13 +230,14 @@ Clip.prototype.show = function(ctx, lowest) {
   return newLowest;
 }
 
-function Clips(vid_list) {
+function Clips(vid_list, chapter_list) {
   this.context = {
     depth: 0.5,
     seq: -1,
     video_depth: 0.5
   }; 
   this.videos = vid_list;
+  this.chapters = chapter_list;
   var depth_order = 0;
   for (var i = 0; i < this.videos.length; ++i) {
     if (i > 0 && this.videos[i].seq > this.videos[i-1].seq) {
@@ -209,6 +260,9 @@ Clips.prototype.play = function(playing) {
       seq = video.seq;
     }
     lowest = video.setPos(clips.context, lowest);
+  });
+  this.chapters.forEach(function(chapter) {
+    chapter.setPos(clips.context); 
   });
 }
 Clips.prototype.setCurDepth = function(cur_depth) {
@@ -234,6 +288,9 @@ Clips.prototype.show = function()  {
       seq = video.seq;
     }
     lowest = video.show(clips.context, lowest);
+  });
+  this.chapters.forEach(function(chapter) {
+    chapter.setPos(clips.context, true); 
   });
 }
 Clips.prototype.playNext = function() {
@@ -270,9 +327,12 @@ $(document).ready(function(){
     new Clip({screenshot: 'media/star_head.png', media:  'media/4-01.mp4', seq: 3, depth: 0.1, speakername: 'Horatio Darkmatter', title: 'Physics is Poetry'}),
     new Clip({screenshot: 'media/star_head.png', media:  'media/4-02.mp4', seq: 3, depth: 0.3, speakername: 'Horatio Darkmatter', title: 'Physics is Poetry'}),
     new Clip({screenshot: 'media/star_head.png', media:  'media/4-04.mp4', seq: 3, depth: 0.5, speakername: 'Horatio Darkmatter', title: 'Physics is Poetry'}),
-    new Clip({screenshot: 'media/star_head.png', media:  'media/4-05.mp4', seq: 3, depth: 0.7, speakername: 'Horatio Darkmatter', title: 'Physics is Poetry'}),
     new Clip({screenshot: 'media/star_head.png', media:  'media/4-06.mp4', seq: 3, depth: 0.9, speakername: 'Horatio Darkmatter', title: 'Physics is Poetry'})
-  ]);
+  ],
+  [new Chapter('#001', 0),
+   new Chapter('#002', 1),
+   new Chapter('#003', 2),
+   new Chapter('#004', 3)]);
 });
 
 
