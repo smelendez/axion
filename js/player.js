@@ -12,7 +12,7 @@ $(document).ready(function(){
   });
   PLAYER._play = function(){
     // Stop any ongoing fades
-    $('#player').stop();
+    $('#player').stop(true);
 
     $('#player').css('opacity', 0);
     PLAYER.play();
