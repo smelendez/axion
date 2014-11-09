@@ -15,57 +15,70 @@ function Clip(screenshot, media, seq, depth) {
   this.depth = depth;
   this.seq = seq;
 }
-Clip.prototype.setPos = function(ctx) {
+Clip.prototype.setPos = function(ctx, opt_noAnimate) {
   // TODO: actual animation w/ circular paths around main video
   if (this.playing) {
     var clip = this;
-    this.dom.css('opacity', '0')
-        .css('top', '85px')
-        .css('left', '365px')
-        .css('width', '550px')
-        .css('height', '550px');
+    this.dom.css({
+      'opacity': 0,
+      'width': 550,
+      'height': 550,
+    });
+    if (opt_noAnimate) {
+      this.dom.css({'top': 85, 'left': 365});
+    } else {
+      this.dom.css({
+       'top': 85,
+       'left': 365});
+    }
     return;
   }
   this.dom.css('opacity', '1');
 
+  oldTop = this.dom.css('top');
+  var newTop, newLeft, newWidth, newHeight;
   if (this.seq == ctx.seq) {
-    var top = (this.depth < ctx.video_depth) ? 0 : 635;
-    this.dom
-        .css('top', (top + (.18 * 85)) + 'px')
-        .css('left', 400 + (100 * this.depth_order) + 'px')
-        .css('width', '85px')
-        .css('height', '85px')
-        .css('margin-top', -(.18 * 85) + 'px')
-        .css('font-size', (.36 * 85) + 'px');
+    newTop = (this.depth < ctx.video_depth) ? 0 : 635;
+    newLeft =  400 + (100 * this.depth_order);
+    newWidth = 85;
+    newHeight = 85;
   } else {
     var depthFactor = 1.2 - (1/(1 + Math.exp(4 - 8 * Math.abs(this.depth - ctx.depth))));
     var seqFactor = 1 / Math.pow(Math.abs(this.seq - ctx.seq), 0.5);
     var sizeFactor = depthFactor * seqFactor;
 
-    var left = ((this.seq - ctx.seq) * 80);
-    if (left > 0) left += 850; else left += 350;
-    if (left > 1080) {
+    newLeft = ((this.seq - ctx.seq) * 80);
+    if (newLeft > 0) newLeft += 850; else newLeft += 350;
+    if (newLeft > 1080) {
       sizeFactor = 0;
-      left = 1080;
+      newLeft = 1080;
     }
-    if (left < 0) {
+    if (newLeft < 0) {
       sizeFactor = 0;
-      left = 0;
+      newLeft = 0;
     }
 
     var vertRange = 720 / Math.pow(Math.abs(this.seq - ctx.seq), 0.7);
-
     var vertNoise = Math.random() * 20 - 10;
-    this.dom
-        .css('left', left + 'px')
-        .css('top', vertNoise - (25 * sizeFactor) + 360 +
-		    (this.depth - ctx.depth)/2 * vertRange +
-		    'px')
-        .css('width', 50 * sizeFactor + 'px')
-        .css('height', 50 * sizeFactor + 'px')
-        .css('margin-top', -9 * .8 * sizeFactor + 'px')
-        .css('font-size', 18 * .8 * sizeFactor + 'px');
+
+    newTop = vertNoise - (25 * sizeFactor) + 360 +
+	    (this.depth - ctx.depth)/2 * vertRange;
+    newWidth = 50 * sizeFactor;
+    newHeight = 50 * sizeFactor;
   }
+  this.dom.css({
+    'width': newWidth,
+    'height': newHeight,
+    'margin-top': -.18 * newHeight,
+    'font-size': .36 * 85
+  });
+  if (opt_noAnimate) {
+    this.dom.css({'top': newTop, 'left': newLeft});
+  } else {
+    this.dom.css({
+      'top': newTop,
+      'left': newLeft});
+ }
 }
 Clip.prototype.setPlaying = function(playing) {
   this.playing = playing;
@@ -77,6 +90,22 @@ Clip.prototype.preview = function(){
 Clip.prototype.show = function(ctx) {
   var that = this;
   this.setPos(ctx);
+  this.dom.appendTo($('#viewport'));
+
+  this.dom.animate({
+    'top': newTop,
+    'left': newLeft});
+}
+Clip.prototype.setPlaying = function(playing) {
+  this.playing = playing;
+}
+Clip.prototype.preview = function(){
+    return '<img width="200px" height="200px" id="preview_screenshot" src="' + this.screenshot + '" /> <div id="preview_title">Dr. Horatio Darkmatter:<br /> "I believe in science"</div>'
+
+}
+Clip.prototype.show = function(ctx) {
+  var that = this;
+  this.setPos(ctx, true);
   this.dom.appendTo($('#viewport'));
   this.dom.on('mouseover', function(){
     $('#hover_preview').html(that.preview()).show();
