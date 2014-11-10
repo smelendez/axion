@@ -80,7 +80,7 @@ function animateChapter(obj, old_left, old_width, new_left, new_width, duration,
 function getChapterLeft(seq_diff) {
   var newLeft = seq_diff * 80;
   if (newLeft > 0) newLeft += 810; else newLeft += 310;
-  if (newLeft > 1060) newLeft = 1060;
+  if (newLeft > 1050) newLeft = 1130;
   if (newLeft < 0) newLeft = 0;
   return newLeft;
 }
@@ -105,7 +105,7 @@ Chapter.prototype.setPos = function(ctx, opt_noAnimate) {
   var oldWidth = parseFloat(this.dom.css('width'));
   var newWidth = (ctx.seq == this.seq) ? 580 : 80;
   var newLeft = getChapterLeft(this.seq - ctx.seq);
-  if (newLeft == 1060 || newLeft == 0) {
+  if (newLeft == 1130 || newLeft == 0) {
       this.dom.find('span').css('visibility', 'hidden');
       newWidth = 0;
   }
@@ -157,10 +157,11 @@ Clip.prototype.setPos = function(ctx, lowest, opt_noAnimate) {
     var sizeFactor = depthFactor * seqFactor;
 
     newLeft = getChapterLeft(this.seq - ctx.seq);
-    if (newLeft == 1060 || newLeft == 0) {
+    if (newLeft == 1130 || newLeft == 0) {
       sizeFactor = 0;
+    } else {
+      newLeft += 40 - (25 * sizeFactor);
     }
-    newLeft += 40 - (25 * sizeFactor);
 
     var vertRange = 720 / Math.pow(Math.abs(this.seq - ctx.seq), 0.7);
     var vertNoise = Math.random() * 20 - 10;
